@@ -1,4 +1,4 @@
-# FortBrasilPlugin GLPi plugin
+# FortBrasil GLPi plugin
 
 Add your plugin description here.
 

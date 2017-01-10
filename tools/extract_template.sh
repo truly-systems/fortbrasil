@@ -3,7 +3,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/../"
 pushd $DIR > /dev/null
 
-NAME='FortBrasilPlugin'
+NAME='FortBrasil'
 POTFILE=${NAME,,}.pot
 
 PHP_SOURCES=`find ./ -name \*.php ! -path ./vendor ! -path ./lib`
