@@ -26,6 +26,8 @@
  --------------------------------------------------------------------------
  */
 
+include_once('inc/ticket.class.php');
+
 define('PLUGIN_FORTBRASIL_VERSION', '1.0.0');
 
 /**
@@ -38,6 +40,10 @@ function plugin_init_fortbrasil() {
    global $PLUGIN_HOOKS;
 
    $PLUGIN_HOOKS['csrf_compliant']['fortbrasil'] = true;
+
+   $PLUGIN_HOOKS['pre_item_add']['fortbrasil'] = array(
+     'Ticket' => 'pre_item_add_ticket'
+   );
 }
 
 

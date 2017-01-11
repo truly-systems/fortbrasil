@@ -43,3 +43,7 @@ function plugin_fortbrasil_install() {
 function plugin_fortbrasil_uninstall() {
    return true;
 }
+
+function pre_item_add_ticket(Ticket $item) {
+  PluginFortBrasilTicket::beforeCreate($item);
+}
