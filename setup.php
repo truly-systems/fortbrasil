@@ -45,7 +45,7 @@ function plugin_init_fortbrasil() {
      'Ticket' => 'pre_item_add_ticket'
    );
 
-   $PLUGIN_HOOKS['add_javascript']['fortbrasil'] = 'assets/fields.js';
+   $PLUGIN_HOOKS['add_javascript']['fortbrasil'] = 'fields.js.php';
 }
 
 

@@ -1,3 +1,11 @@
+<?php
+
+include_once 'inc/ticket.class.php';
+
+header('Content-type: application/javascript');
+
+?>
+
 $(window).load(function() {
   if(window.location.pathname.match(/ticket\.form\.php/)) {
     var i = setInterval(function() {
@@ -10,6 +18,6 @@ $(window).load(function() {
 
   function inject_custom_fields() {
     $('#mainformtable').after("<div id='fortbrasil-container'></div>");
-    $('#fortbrasil-container').load('../plugins/fortbrasil/template/fields.html');
+    $('#fortbrasil-container').append("<?php PluginFortBrasilTicket::showCustomFields() ?>");
   }
 });
