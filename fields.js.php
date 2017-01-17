@@ -1,6 +1,6 @@
 <?php
 
-include_once 'inc/ticket.class.php';
+include ('../../inc/includes.php');
 
 header('Content-type: application/javascript');
 

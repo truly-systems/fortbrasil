@@ -1,6 +1,6 @@
 <?php
 
-class PluginFortBrasilTicket {
+class PluginFortBrasilTicket extends CommonITILObject {
 
   static function beforeCreate(Ticket $item) {
     $item->input['name'] = $item->input['telefone_field'];
@@ -12,6 +12,9 @@ class PluginFortBrasilTicket {
 
     $description = "ID Conta:\t$id_conta\nCPF:\t$cpf\nNome:\t$nome\n\n$content";
     $item->input['content'] = $description;
+
+    $watcher_id = User::getIdByName($id_conta);
+    array_push($item->input['_users_id_observer'], $watcher_id);
   }
 
   static function showCustomFields() {
@@ -49,7 +52,8 @@ class PluginFortBrasilTicket {
     // Telefone
     echo "<tr class='tab_bg_1'>";
     echo "<th width='3%'>Telefone</th>";
-    echo "<td width='29%'><input type='text' name='telefone_field' value=''></td>";
+    echo "<td width='29%'><input type='text' name='telefone_field' " .
+      " value=''></td>";
     echo "<td colspan='2'></td>";
     echo "</tr>";
 
@@ -64,6 +68,23 @@ class PluginFortBrasilTicket {
     echo "</table>";
   }
 
+  // Obtém o Ticket de acordo com o ID passado na URL
+  private static function getTicket() {
+    $ticket = null;
+
+    $url = $_SERVER['HTTP_REFERER'];
+    $parts = parse_url($url);
+
+    if(isset($parts['query'])) {
+      parse_str($parts['query'], $query);
+      $id = $query['id'];
+
+      $ticket = new Ticket();
+      $ticket->getFromDB($id);
+    }
+
+    return $ticket;
+  }
 }
 
 ?>
