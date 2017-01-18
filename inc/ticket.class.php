@@ -12,6 +12,8 @@ class PluginFortBrasilTicket extends CommonITILObject {
     $ddi          = $item->input['ddi_field'];
     $content      = $item->input['content'];
 
+    $watcher_id   = User::getIdByName($id_conta);
+
     // Remove mask characters
     $chars    = array('(', ')', '-', ' ');
     $telefone = str_replace($chars, '', $telefone);
@@ -20,9 +22,7 @@ class PluginFortBrasilTicket extends CommonITILObject {
 
     $item->input['name']    = "$ddi$telefone";
     $item->input['content'] = $description;
-
-    $watcher_id = User::getIdByName($id_conta);
-    array_push($item->input['_users_id_observer'], $watcher_id);
+    $item->input['_users_id_observer'] = array($watcher_id);
   }
 
   static function showCustomFields() {
