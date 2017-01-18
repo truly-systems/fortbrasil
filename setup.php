@@ -62,7 +62,7 @@ function plugin_version_fortbrasil() {
       'author'         => '<a href="http://trulymanager.com">Truly Systems</a>',
       'license'        => '',
       'homepage'       => '',
-      'minGlpiVersion' => '9.1'
+      'minGlpiVersion' => '0.90.0'
    ];
 }
 
@@ -74,8 +74,8 @@ function plugin_version_fortbrasil() {
  */
 function plugin_fortbrasil_check_prerequisites() {
    // Strict version check (could be less strict, or could allow various version)
-   if (version_compare(GLPI_VERSION,'9.1','lt')) {
-      echo "This plugin requires GLPI >= 9.1";
+   if (version_compare(GLPI_VERSION,'0.90.0','lt')) {
+      echo "This plugin requires GLPI >= 0.90.0";
       return false;
    }
    return true;
