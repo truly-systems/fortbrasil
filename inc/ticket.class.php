@@ -13,9 +13,13 @@ class PluginFortBrasilTicket extends CommonITILObject {
     $content      = $item->input['content'];
     $watcher      = $item->input['_users_id_observer'];
 
+    // Remove mask characters
+    $chars    = array('(', ')', '-', ' ');
+    $telefone = str_replace($chars, '', $telefone);
+
     $description  = "ID Conta:\t$id_conta\nCPF:\t$cpf\nNome:\t$nome\n\n$content";
 
-    $item->input['name']    = "+$ddi $telefone";
+    $item->input['name']    = "$ddi$telefone";
     $item->input['content'] = $description;
 
     $watcher_id = User::getIdByName($id_conta);
