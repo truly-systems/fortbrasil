@@ -24,7 +24,7 @@ class PluginFortBrasilTicket extends CommonITILObject {
     // ID Conta
     echo "<tr class='tab_bg_1'>";
     echo "<th width='13%'>ID Conta</th>";
-    echo "<td width='29%'><input type='text' name='id_conta_field' value=''></td>";
+    echo "<td width='29%'><input type='text' name='id_conta_field' class='number'></td>";
     echo "<td colspan='2'></td>";
     echo "</tr>";
 
@@ -38,7 +38,7 @@ class PluginFortBrasilTicket extends CommonITILObject {
     // CPF
     echo "<tr class='tab_bg_1'>";
     echo "<th width='3%'>CPF</th>";
-    echo "<td width='29%'><input type='text' name='cpf_field' value=''></td>";
+    echo "<td width='29%'><input type='text' name='cpf_field' class='cpf'></td>";
     echo "<td colspan='2'></td>";
     echo "</tr>";
 
@@ -52,8 +52,7 @@ class PluginFortBrasilTicket extends CommonITILObject {
     // Telefone
     echo "<tr class='tab_bg_1'>";
     echo "<th width='3%'>Telefone</th>";
-    echo "<td width='29%'><input type='text' name='telefone_field' " .
-      " value=''></td>";
+    echo "<td width='29%'><input type='text' name='telefone_field' class='telefone'></td>";
     echo "<td colspan='2'></td>";
     echo "</tr>";
 

@@ -45,9 +45,9 @@ function plugin_init_fortbrasil() {
      'Ticket' => 'pre_item_add_ticket'
    );
 
-   $PLUGIN_HOOKS['add_javascript']['fortbrasil'] = 'fields.js.php';
+   $PLUGIN_HOOKS['add_javascript']['fortbrasil'][] = 'fields.js.php';
+   $PLUGIN_HOOKS['add_javascript']['fortbrasil'][] = 'jquery.mask.js';
 }
-
 
 /**
  * Get the name and the version of the plugin
