@@ -3,18 +3,23 @@
 class PluginFortBrasilTicket extends CommonITILObject {
 
   static function beforeCreate(Ticket $item) {
-    $item->input['name'] = $item->input['telefone_field'];
+    // Get input values
+    $id_conta     = $item->input['id_conta_field'];
+    $nome         = $item->input['nome_field'];
+    $cpf          = $item->input['cpf_field'];
+    $produto      = $item->input['produto_field'];
+    $telefone     = $item->input['telefone_field'];
+    $ddi          = $item->input['ddi_field'];
+    $content      = $item->input['content'];
+    $watcher      = $item->input['_users_id_observer'];
 
-    $id_conta = $item->input['id_conta_field'];
-    $cpf      = $item->input['cpf_field'];
-    $nome     = $item->input['nome_field'];
-    $content  = $item->input['content'];
+    $description  = "ID Conta:\t$id_conta\nCPF:\t$cpf\nNome:\t$nome\n\n$content";
 
-    $description = "ID Conta:\t$id_conta\nCPF:\t$cpf\nNome:\t$nome\n\n$content";
+    $item->input['name']    = "+$ddi $telefone";
     $item->input['content'] = $description;
 
     $watcher_id = User::getIdByName($id_conta);
-    array_push($item->input['_users_id_observer'], $watcher_id);
+    array_push($watcher, $watcher_id);
   }
 
   static function showCustomFields() {
@@ -52,7 +57,10 @@ class PluginFortBrasilTicket extends CommonITILObject {
     // Telefone
     echo "<tr class='tab_bg_1'>";
     echo "<th width='3%'>Telefone</th>";
-    echo "<td width='29%'><input type='text' name='telefone_field' class='telefone'></td>";
+    echo "<td width='29%'>" .
+    "<input type='text' name='ddi_field' class='number' size='3' value='55'>" .
+    "<input type='text' name='telefone_field' class='telefone' size='14' style='margin-left: 2px'>" .
+    "</td>";
     echo "<td colspan='2'></td>";
     echo "</tr>";
 
