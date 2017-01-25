@@ -41,9 +41,10 @@ function plugin_init_fortbrasil() {
 
    $PLUGIN_HOOKS['csrf_compliant']['fortbrasil'] = true;
 
-   $PLUGIN_HOOKS['pre_item_add']['fortbrasil'] = array(
-     'Ticket' => 'pre_item_add_ticket'
-   );
+   $PLUGIN_HOOKS['pre_item_add']['fortbrasil']    = array('Ticket' => 'pre_item_add_ticket');
+   $PLUGIN_HOOKS['item_add']['fortbrasil']        = array('Ticket' => 'item_add_ticket');
+   $PLUGIN_HOOKS['pre_item_update']['fortbrasil'] = array('Ticket' => 'pre_item_update_ticket');
+   $PLUGIN_HOOKS['item_update']['fortbrasil']     = array('Ticket' => 'item_update_ticket');
 
    $PLUGIN_HOOKS['add_javascript']['fortbrasil'][] = 'fields.js.php';
    $PLUGIN_HOOKS['add_javascript']['fortbrasil'][] = 'jquery.mask.js';

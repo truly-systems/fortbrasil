@@ -1,41 +1,58 @@
 <?php
 
-class PluginFortBrasilTicket extends CommonITILObject {
+class PluginFortbrasilTicket extends CommonITILObject {
 
-  static function beforeCreate(Ticket $item) {
+  static function prepareInput(Ticket $item, $operation) {
     // Get input values
-    $id_conta     = $item->input['id_conta_field'];
-    $nome         = $item->input['nome_field'];
-    $cpf          = $item->input['cpf_field'];
-    $produto      = $item->input['produto_field'];
-    $telefone     = $item->input['telefone_field'];
-    $ddi          = $item->input['ddi_field'];
-    $content      = $item->input['content'];
+    $id_conta   = $item->input['id_conta_field'];
+    $nome       = $item->input['nome_field'];
+    $cpf        = $item->input['cpf_field'];
+    $produto    = $item->input['produto_field'];
+    $telefone   = $item->input['telefone_field'];
+    $content    = $item->input['content'];
 
-    $watcher_id   = User::getIdByName($id_conta);
+    $ddi = '55';
 
     // Remove mask characters
     $chars    = array('(', ')', '-', ' ');
     $telefone = str_replace($chars, '', $telefone);
 
-    $description  = "ID Conta:\t$id_conta\nCPF:\t$cpf\nNome:\t$nome\n\n$content";
+    $description = "ID Conta:\t$id_conta\nCPF:\t$cpf\nNome:\t$nome\n\n$content";
 
     $item->input['name']    = "$ddi$telefone";
     $item->input['content'] = $description;
-    $item->input['_users_id_observer'] = array($watcher_id);
+  }
+
+  static function save(Ticket $item, $operation) {
+    // Get input values
+    $ticket_id  = $item->fields['id'];
+    $id_conta   = $item->input['id_conta_field'];
+    $nome       = $item->input['nome_field'];
+    $cpf        = $item->input['cpf_field'];
+    $produto    = $item->input['produto_field'];
+    $telefone   = $item->input['telefone_field'];
+    $email      = $item->input['email_field'];
+
+    if($operation == 'create') {
+      self::createTicket($ticket_id, $id_conta, $nome, $cpf, $produto, $telefone, $email);
+    } else if($operation == 'update') {
+      self::updateTicket($ticket_id, $id_conta, $nome, $cpf, $produto, $telefone, $email);
+    }
   }
 
   static function showCustomFields() {
-    $ticket_id  = self::getTicket();
-    $user       = self::getWatcher($ticket_id);
+    $ticket_id  = self::getTicketID();
+    
+    $fields     = new self();
+    $fields     = $fields->find("ticket_id = $ticket_id");
+    $fields     = ($fields) ? array_values($fields)[0] : null;
 
-    $id_conta   = ($user) ? $user->fields['name'] : null;
-    $nome       = ($user) ? $user->fields['firstname'] : null;
-    $cpf        = ($user) ? $user->fields['phone'] : null;
-    $produto    = ($user) ? $user->fields['realname'] : null;
-    $ddi        = ($user) ? substr($user->fields['mobile'], 0, 2) : null;
-    $telefone   = ($user) ? substr($user->fields['mobile'], 2, -1) : null;
-    $email      = '';
+    $id_conta   = ($fields) ? $fields['id_conta'] : null;
+    $nome       = ($fields) ? $fields['nome'] : null;
+    $cpf        = ($fields) ? $fields['cpf'] : null;
+    $produto    = ($fields) ? $fields['produto'] : null;
+    $telefone   = ($fields) ? $fields['telefone'] : null;
+    $email      = ($fields) ? $fields['email'] : null;
 
     echo "<table class='tab_cadre_fixe'>";
     echo "<tbody>";
@@ -71,17 +88,14 @@ class PluginFortBrasilTicket extends CommonITILObject {
     // Telefone
     echo "<tr class='tab_bg_1'>";
     echo "<th width='3%'>Telefone</th>";
-    echo "<td width='29%'>" .
-    "<input type='text' name='ddi_field' class='number' size='3' value='55'>" .
-    "<input type='text' name='telefone_field' class='telefone' value='$telefone' size='14' style='margin-left: 2px'>" .
-    "</td>";
+    echo "<td width='29%'><input type='text' name='telefone_field' class='telefone' value='$telefone'></td>";
     echo "<td colspan='2'></td>";
     echo "</tr>";
 
     // E-mail
     echo "<tr class='tab_bg_1'>";
     echo "<th width='3%'>E-mail</th>";
-    echo "<td width='29%'><input type='text' name='email_field' value=''></td>";
+    echo "<td width='29%'><input type='text' name='email_field' value='$email'></td>";
     echo "<td colspan='2'></td>";
     echo "</tr>";
 
@@ -90,7 +104,7 @@ class PluginFortBrasilTicket extends CommonITILObject {
   }
 
   // Obtém o Ticket de acordo com o ID passado na URL
-  private static function getTicket() {
+  private static function getTicketID() {
     $ticket = null;
 
     $url = $_SERVER['HTTP_REFERER'];
@@ -104,19 +118,25 @@ class PluginFortBrasilTicket extends CommonITILObject {
     return $ticket;
   }
 
-  private static function getWatcher($ticket_id) {
-    $user     = null;
-    $ticket   = new Ticket_User();
+  private static function createTicket($ticket_id, $id_conta, $nome, $cpf, $produto, $telefone, $email) {
+    global $DB;
+    $table = self::getTable();
 
-    $user_id  = $ticket->find("tickets_id = $ticket_id AND type = 3", 'id', 1);
-    $user_id  = ($user_id) ? array_values($user_id)[0]['users_id'] : null;
+    $query = "INSERT INTO $table (`ticket_id`, `id_conta`, `nome`, `cpf`, `produto`, `telefone`, `email`) 
+              VALUES('$ticket_id', '$id_conta', '$nome', '$cpf', '$produto', '$telefone', '$email')";
 
-    if($user_id) {
-      $user = new User();
-      $user->getFromDB($user_id);
-    }
+    $DB->query($query);
+  }
 
-    return $user;
+  private static function updateTicket($ticket_id, $id_conta, $nome, $cpf, $produto, $telefone, $email) {
+    global $DB;
+    $table = self::getTable();
+
+    $query = "UPDATE `glpi_plugin_fortbrasil_tickets` 
+              SET `id_conta` = '$id_conta', `nome` = '$nome', `cpf` = '$cpf', `produto` = '$produto', 
+              `telefone` = '$telefone', `email` = '$email'  WHERE `ticket_id` = '$ticket_id'";
+
+    $DB->query($query);
   }
 }
 
