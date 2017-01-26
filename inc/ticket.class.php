@@ -13,14 +13,12 @@ class PluginFortbrasilTicket extends CommonITILObject {
 
     $ddi = '55';
 
-    // Remove mask characters
+    // Remove non digit characters
     $chars    = array('(', ')', '-', ' ');
     $telefone = str_replace($chars, '', $telefone);
 
-    $description = "ID Conta:\t$id_conta\nCPF:\t$cpf\nNome:\t$nome\n\n$content";
-
     $item->input['name']    = "$ddi$telefone";
-    $item->input['content'] = $description;
+    $item->input['content'] = self::prepareContentInput($content, $id_conta, $cpf, $nome);
   }
 
   static function save(Ticket $item, $operation) {
@@ -42,7 +40,7 @@ class PluginFortbrasilTicket extends CommonITILObject {
 
   static function showCustomFields() {
     $ticket_id  = self::getTicketID();
-    
+
     $fields     = new self();
     $fields     = $fields->find("ticket_id = $ticket_id");
     $fields     = ($fields) ? array_values($fields)[0] : null;
@@ -118,11 +116,29 @@ class PluginFortbrasilTicket extends CommonITILObject {
     return $ticket;
   }
 
+  private static function prepareContentInput($content, $id_conta, $cpf, $nome) {
+    // Clear field values from content
+    $fields = array('ID Conta', 'CPF', 'Nome');
+
+    foreach($fields as $field) {
+      $pattern = "/($field.*?)(\\\\r|\\\\n|$)/";
+      $content = preg_replace($pattern, '', $content);
+    }
+
+    // Trim new line characters
+    $pattern = array('/^(\\\\n|\\\\r)+/', '/(\\\\n|\\\\r)+$/');
+    $content = preg_replace($pattern, '', $content);
+
+    $content = "ID Conta:\t$id_conta\nCPF:\t$cpf\nNome:\t$nome\n\n$content";
+
+    return $content;
+  }
+
   private static function createTicket($ticket_id, $id_conta, $nome, $cpf, $produto, $telefone, $email) {
     global $DB;
     $table = self::getTable();
 
-    $query = "INSERT INTO $table (`ticket_id`, `id_conta`, `nome`, `cpf`, `produto`, `telefone`, `email`) 
+    $query = "INSERT INTO $table (`ticket_id`, `id_conta`, `nome`, `cpf`, `produto`, `telefone`, `email`)
               VALUES('$ticket_id', '$id_conta', '$nome', '$cpf', '$produto', '$telefone', '$email')";
 
     $DB->query($query);
@@ -132,8 +148,8 @@ class PluginFortbrasilTicket extends CommonITILObject {
     global $DB;
     $table = self::getTable();
 
-    $query = "UPDATE `glpi_plugin_fortbrasil_tickets` 
-              SET `id_conta` = '$id_conta', `nome` = '$nome', `cpf` = '$cpf', `produto` = '$produto', 
+    $query = "UPDATE `glpi_plugin_fortbrasil_tickets`
+              SET `id_conta` = '$id_conta', `nome` = '$nome', `cpf` = '$cpf', `produto` = '$produto',
               `telefone` = '$telefone', `email` = '$email'  WHERE `ticket_id` = '$ticket_id'";
 
     $DB->query($query);
