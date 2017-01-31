@@ -58,47 +58,61 @@ class PluginFortbrasilTicket extends CommonITILObject {
     // ID Conta
     echo "<tr class='tab_bg_1'>";
     echo "<th width='13%'>ID Conta</th>";
-    echo "<td width='29%'><input type='text' name='id_conta_field' class='number' value='$id_conta'></td>";
+    echo "<td width='29%'><input type='text' id='id_conta_field' name='id_conta_field' class='number' value='$id_conta' onchange='fill_fields()'></td>";
     echo "<td colspan='2'></td>";
     echo "</tr>";
 
     // Nome
     echo "<tr class='tab_bg_1'>";
     echo "<th width='3%'>Nome</th>";
-    echo "<td width='29%'><input type='text' name='nome_field' value='$nome'></td>";
+    echo "<td width='29%'><input type='text' id='nome_field' name='nome_field' value='$nome'></td>";
     echo "<td colspan='2'></td>";
     echo "</tr>";
 
     // CPF
     echo "<tr class='tab_bg_1'>";
     echo "<th width='3%'>CPF</th>";
-    echo "<td width='29%'><input type='text' name='cpf_field' class='cpf' value='$cpf'></td>";
+    echo "<td width='29%'><input type='text' id='cpf_field' name='cpf_field' class='cpf' value='$cpf'></td>";
     echo "<td colspan='2'></td>";
     echo "</tr>";
 
     // Produto
     echo "<tr class='tab_bg_1'>";
     echo "<th width='3%'>Produto</th>";
-    echo "<td width='29%'><input type='text' name='produto_field' value='$produto'></td>";
+    echo "<td width='29%'><input type='text' id='produto_field' name='produto_field' value='$produto'></td>";
     echo "<td colspan='2'></td>";
     echo "</tr>";
 
     // Telefone
     echo "<tr class='tab_bg_1'>";
     echo "<th width='3%'>Telefone</th>";
-    echo "<td width='29%'><input type='text' name='telefone_field' class='telefone' value='$telefone'></td>";
+    echo "<td width='29%'><input type='text' id='telefone_field' name='telefone_field' class='telefone' value='$telefone'></td>";
     echo "<td colspan='2'></td>";
     echo "</tr>";
 
     // E-mail
     echo "<tr class='tab_bg_1'>";
     echo "<th width='3%'>E-mail</th>";
-    echo "<td width='29%'><input type='text' name='email_field' value='$email'></td>";
+    echo "<td width='29%'><input type='text' id='email_field' name='email_field' value='$email'></td>";
     echo "<td colspan='2'></td>";
     echo "</tr>";
 
     echo "</tbody>";
     echo "</table>";
+  }
+
+  static function findByIDConta($id_conta) {
+    $user = new User();
+    $user->getFromDBbyName($id_conta);
+
+    $fields = array(
+      'nome'      => $user->fields['firstname'],
+      'cpf'       => $user->fields['phone'],
+      'produto'   => $user->fields['realname'],
+      'telefone'  => substr($user->fields['mobile'], 2)
+    );
+
+    return $fields;
   }
 
   // Obtém o Ticket de acordo com o ID passado na URL

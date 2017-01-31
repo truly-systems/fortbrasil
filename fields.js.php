@@ -35,3 +35,27 @@ $(window).load(function() {
     $('#fortbrasil-container').append("<?php PluginFortBrasilTicket::showCustomFields() ?>");
   }
 });
+
+function fill_fields() {
+  var path      = '../plugins/fortbrasil/ajax/get_fields.php';
+  var id_conta  = $('#id_conta_field').val();
+
+  $.ajax({
+    type: 'GET',
+    dataType: 'json',
+    url: path,
+    data: 'id_conta=' + id_conta,
+
+    success: function(data) {
+      var nome      = (data['nome']) ? data['nome'] : '';
+      var cpf       = (data['cpf']) ? data['cpf'] : '';
+      var produto   = (data['produto']) ? data['produto'] : '';
+      var telefone  = (data['telefone']) ? data['telefone'] : '';
+
+      $('#nome_field').val(nome);
+      $('#cpf_field').val(cpf);
+      $('#produto_field').val(produto);
+      $('#telefone_field').val(telefone);
+    }
+  });
+}
