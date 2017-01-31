@@ -110,7 +110,7 @@ class PluginFortbrasilTicket extends CommonITILObject {
 
     if(isset($parts['query'])) {
       parse_str($parts['query'], $query);
-      $ticket = $query['id'];
+      $ticket = isset($query['id']) ? $query['id'] : null;
     }
 
     return $ticket;
