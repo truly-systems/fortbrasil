@@ -105,12 +105,16 @@ class PluginFortbrasilTicket extends CommonITILObject {
     $user = new User();
     $user->getFromDBbyName($id_conta);
 
-    $fields = array(
-      'nome'      => $user->fields['firstname'],
-      'cpf'       => $user->fields['phone'],
-      'produto'   => $user->fields['realname'],
-      'telefone'  => substr($user->fields['mobile'], 2)
-    );
+    $fields = array();
+
+    if(isset($user->fields['name'])) {
+      $fields = array(
+        'nome'      => $user->fields['firstname'],
+        'cpf'       => $user->fields['phone'],
+        'produto'   => $user->fields['realname'],
+        'telefone'  => substr($user->fields['mobile'], 2)
+      );
+    }
 
     return $fields;
   }
