@@ -9,6 +9,7 @@ class PluginFortbrasilTicket extends CommonITILObject {
     $cpf        = $item->input['cpf_field'];
     $produto    = $item->input['produto_field'];
     $telefone   = $item->input['telefone_field'];
+    $email      = $item->input['email_field'];
     $content    = $item->input['content'];
 
     $ddi = '55';
@@ -19,6 +20,17 @@ class PluginFortbrasilTicket extends CommonITILObject {
 
     $item->input['name']    = "$ddi$telefone";
     $item->input['content'] = self::prepareContentInput($content, $id_conta, $cpf, $nome);
+
+    if($operation == 'create') {
+      $item->input['_users_id_observer_notif']['use_notification']  = array(1);
+      $item->input['_users_id_observer_notif']['alternative_email'] = array($email);
+    } else if($operation == 'update') {
+      $ticket_id = $item->fields['id'];
+      $ticket_user = new Ticket_User();
+      $ticket_user->getFromDBByQuery("WHERE `tickets_id` = '$ticket_id' AND `type` = '3'");
+      $ticket_user->fields['alternative_email'] = $email;
+      $ticket_user->updateInDB(array('alternative_email'));
+    }
   }
 
   static function save(Ticket $item, $operation) {
