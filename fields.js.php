@@ -51,11 +51,13 @@ function fill_fields() {
       var cpf       = (data['cpf']) ? data['cpf'] : '';
       var produto   = (data['produto']) ? data['produto'] : '';
       var telefone  = (data['telefone']) ? data['telefone'] : '';
+      var email     = (data['email']) ? data['email'] : '';
 
       $('#nome_field').val(nome);
       $('#cpf_field').val(cpf);
       $('#produto_field').val(produto);
       $('#telefone_field').val(telefone);
+      $('#email_field').val(email);
     }
   });
 }

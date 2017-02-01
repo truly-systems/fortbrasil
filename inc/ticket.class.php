@@ -124,7 +124,8 @@ class PluginFortbrasilTicket extends CommonITILObject {
         'nome'      => $user->fields['firstname'],
         'cpf'       => $user->fields['phone'],
         'produto'   => $user->fields['realname'],
-        'telefone'  => substr($user->fields['mobile'], 2)
+        'telefone'  => substr($user->fields['mobile'], 2),
+        'email'     => $user->getDefaultEmail()
       );
     }
 
