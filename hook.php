@@ -32,25 +32,27 @@ along with FortBrasil. If not, see <http://www.gnu.org/licenses/>.
 * @return boolean
 */
 function plugin_fortbrasil_install() {
-   global $DB;
+  global $DB;
 
-   if(!TableExists('glpi_plugin_fortbrasil_tickets')) {
-      $query = "CREATE TABLE `glpi_plugin_fortbrasil_tickets` (
-         `id` INT(11) NOT NULL AUTO_INCREMENT,
-         `ticket_id` INT(11) NOT NULL,
-         `id_conta` BIGINT(20),
-         `nome` VARCHAR(45),
-         `cpf` VARCHAR(15),
-         `produto` VARCHAR(255),
-         `telefone` VARCHAR(15),
-         `email` VARCHAR(255),
-         PRIMARY KEY(`id`)
-      ) ENGINE=MyISAM CHARSET=utf8 COLLATE=utf8_unicode_ci";
-      
-      $DB->query($query) or die('error glpi_plugin_fortbrasil_tickets ' . $DB->error());
-   }
+  if(!TableExists('glpi_plugin_fortbrasil_tickets')) {
+    $query = "CREATE TABLE `glpi_plugin_fortbrasil_tickets` (
+      `id` INT(11) NOT NULL AUTO_INCREMENT,
+      `ticket_id` INT(11) NOT NULL,
+      `id_conta` BIGINT(20),
+      `nome` VARCHAR(45),
+      `cpf` VARCHAR(15),
+      `produto` VARCHAR(255),
+      `telefone` VARCHAR(15),
+      `email` VARCHAR(255),
+      PRIMARY KEY(`id`)
+    ) ENGINE=MyISAM CHARSET=utf8 COLLATE=utf8_unicode_ci";
 
-   return true;
+    $DB->query($query) or die('error glpi_plugin_fortbrasil_tickets ' . $DB->error());
+  }
+
+  CronTask::Register('PluginFortbrasilCron', 'ImportUsers', DAY_TIMESTAMP);
+
+  return true;
 }
 
 /**
@@ -59,41 +61,41 @@ function plugin_fortbrasil_install() {
 * @return boolean
 */
 function plugin_fortbrasil_uninstall() {
-   global $DB;
+  global $DB;
 
-   if(TableExists('glpi_plugin_fortbrasil_tickets')) {
-      $query = "DROP TABLE `glpi_plugin_fortbrasil_tickets`";
-      $DB->query($query) or die('error deleting glpi_plugin_fortbrasil_tickets');
-   }
+  if(TableExists('glpi_plugin_fortbrasil_tickets')) {
+    $query = "DROP TABLE `glpi_plugin_fortbrasil_tickets`";
+    $DB->query($query) or die('error deleting glpi_plugin_fortbrasil_tickets');
+  }
 
-   return true;
+  return true;
 }
 
 // HOOKS
 function pre_item_add_ticket(Ticket $item) {
-   $operation = 'create';
-   PluginFortBrasilTicket::prepareInput($item, $operation);
+  $operation = 'create';
+  PluginFortBrasilTicket::prepareInput($item, $operation);
 }
 
 function item_add_ticket(Ticket $item) {
-   $operation = 'create';
-   PluginFortBrasilTicket::save($item, $operation);
+  $operation = 'create';
+  PluginFortBrasilTicket::save($item, $operation);
 }
 
 function pre_item_update_ticket(Ticket $item) {
-   $update = isset($item->input['id_conta_field']);
+  $update = isset($item->input['id_conta_field']);
 
-   if($update) {
-      $operation = 'update';
-      PluginFortBrasilTicket::prepareInput($item, $operation);
-   }
+  if($update) {
+    $operation = 'update';
+    PluginFortBrasilTicket::prepareInput($item, $operation);
+  }
 }
 
 function item_update_ticket(Ticket $item) {
-   $update = isset($item->input['id_conta_field']);
+  $update = isset($item->input['id_conta_field']);
 
-   if($update) {
-      $operation = 'update';
-      PluginFortBrasilTicket::save($item, $operation);
-   }
+  if($update) {
+    $operation = 'update';
+    PluginFortBrasilTicket::save($item, $operation);
+  }
 }
