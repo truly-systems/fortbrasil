@@ -99,3 +99,13 @@ function item_update_ticket(Ticket $item) {
     PluginFortBrasilTicket::save($item, $operation);
   }
 }
+
+function post_show_ticket($params) {
+   if(!is_array($params['item'])) {
+      switch( $params['item']->getType() ) {
+         case 'Ticket':
+            PluginFortBrasilTicket::test($params);
+            break;
+      }
+   }
+}
