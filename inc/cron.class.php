@@ -15,7 +15,10 @@ class PluginFortbrasilCron {
   }
 
   static function cronImportUsers($task) {
+    $root     = GLPI_ROOT;
     $filename = $task->fields['comment'];
+    $filename = "$root/plugins/fortbrasil/files/$filename";
+
     $data     = self::getFileData($filename);
 
     foreach($data as $row) {
