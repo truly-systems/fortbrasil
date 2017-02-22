@@ -102,10 +102,10 @@ function item_update_ticket(Ticket $item) {
 
 function post_show_ticket($params) {
    if(!is_array($params['item'])) {
-      switch( $params['item']->getType() ) {
-         case 'Ticket':
-            PluginFortBrasilTicket::test($params);
-            break;
-      }
+    switch( $params['item']->getType() ) {
+     case 'Ticket':
+      PluginFortBrasilTicket::test($params['options']['id'], $params['item']);
+      break;
+    }
    }
 }

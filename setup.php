@@ -48,7 +48,7 @@ function plugin_init_fortbrasil() {
 
    $PLUGIN_HOOKS['post_show_item']['fortbrasil']   = 'post_show_ticket';
 
-   $PLUGIN_HOOKS['add_javascript']['fortbrasil'][] = 'fields.js.php';
+   $PLUGIN_HOOKS['add_javascript']['fortbrasil'][] = 'fields.js';
    $PLUGIN_HOOKS['add_javascript']['fortbrasil'][] = 'jquery.mask.js';
 }
 
