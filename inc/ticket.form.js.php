@@ -1,6 +1,6 @@
 <?php
 
-$form = PluginFortBrasilTicket::showCustomFields();
+$form = PluginFortbrasilTicket::showCustomFields();
 
 echo '<script>';
 echo "$('#mainformtable').after('$form');";

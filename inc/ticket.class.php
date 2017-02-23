@@ -136,17 +136,18 @@ class PluginFortbrasilTicket extends CommonITILObject {
     return $fields;
   }
 
-  static function test($ID, $ticket) {
+  static function showForm($ID, $ticket) {
     $template_preview = '0';
     $type             = $ticket->fields['type'];
     $category         = $ticket->fields['itilcategories_id'];
     $entity           = $ticket->fields['entities_id'];
 
-    $tt = $ticket->getTicketTemplateToUse($template_preview, $type, $category, $entity);
+    $tt         = $ticket->getTicketTemplateToUse($template_preview, $type, $category, $entity);
+    $is_enabled = PluginFortbrasilTemplate::isEnabled($tt->fields['id']);
 
-//    if($tt->fields['name'] == 'Fort') {
-    include_once('fields.form.js.php');
-//    }
+    if($is_enabled) {
+      include_once('ticket.form.js.php');
+    }
   }
 
   // Obtém o Ticket de acordo com o ID passado na URL
