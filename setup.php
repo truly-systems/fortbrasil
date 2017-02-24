@@ -39,14 +39,16 @@ define('PLUGIN_FORTBRASIL_VERSION', '1.0.0');
 function plugin_init_fortbrasil() {
    global $PLUGIN_HOOKS;
 
-   $PLUGIN_HOOKS['csrf_compliant']['fortbrasil'] = true;
+   $PLUGIN_HOOKS['csrf_compliant']['fortbrasil']   = true;
 
-   $PLUGIN_HOOKS['pre_item_add']['fortbrasil']    = array('Ticket' => 'pre_item_add_ticket');
-   $PLUGIN_HOOKS['item_add']['fortbrasil']        = array('Ticket' => 'item_add_ticket');
-   $PLUGIN_HOOKS['pre_item_update']['fortbrasil'] = array('Ticket' => 'pre_item_update_ticket');
-   $PLUGIN_HOOKS['item_update']['fortbrasil']     = array('Ticket' => 'item_update_ticket');
+   $PLUGIN_HOOKS['pre_item_add']['fortbrasil']     = array('Ticket' => 'pre_item_add_ticket');
+   $PLUGIN_HOOKS['item_add']['fortbrasil']         = array('Ticket' => 'item_add_ticket');
+   $PLUGIN_HOOKS['pre_item_update']['fortbrasil']  = array('Ticket' => 'pre_item_update_ticket');
+   $PLUGIN_HOOKS['item_update']['fortbrasil']      = array('Ticket' => 'item_update_ticket');
+   $PLUGIN_HOOKS['post_show_item']['fortbrasil']   = 'post_show_item';
+   $PLUGIN_HOOKS['pre_item_update']['fortbrasil']  = array('TicketTemplate' => 'pre_item_update_template');
 
-   $PLUGIN_HOOKS['add_javascript']['fortbrasil'][] = 'fields.js.php';
+   $PLUGIN_HOOKS['add_javascript']['fortbrasil'][] = 'fields.js';
    $PLUGIN_HOOKS['add_javascript']['fortbrasil'][] = 'jquery.mask.js';
 }
 

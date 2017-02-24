@@ -50,9 +50,7 @@ class PluginFortbrasilTicket extends CommonITILObject {
     }
   }
 
-  static function showCustomFields() {
-    $ticket_id  = self::getTicketID();
-
+  static function showCustomFields($ticket_id) {
     $fields     = new self();
     $fields     = $fields->find("ticket_id = $ticket_id");
     $fields     = ($fields) ? array_values($fields)[0] : null;
@@ -64,53 +62,57 @@ class PluginFortbrasilTicket extends CommonITILObject {
     $telefone   = ($fields) ? $fields['telefone'] : null;
     $email      = ($fields) ? $fields['email'] : null;
 
-    echo "<table class='tab_cadre_fixe'>";
-    echo "<tbody>";
+    $html = '';
+
+    $html .= "<table class=\'tab_cadre_fixe\'>";
+    $html .= "<tbody>";
 
     // ID Conta
-    echo "<tr class='tab_bg_1'>";
-    echo "<th width='13%'>ID Conta</th>";
-    echo "<td width='29%'><input type='text' id='id_conta_field' name='id_conta_field' class='number' value='$id_conta' onchange='fill_fields()'></td>";
-    echo "<td colspan='2'></td>";
-    echo "</tr>";
+    $html .= "<tr class=\'tab_bg_1\'>";
+    $html .= "<th width=\'13%\'>ID Conta</th>";
+    $html .= "<td width=\'29%\'><input type=\'text\' id=\'id_conta_field\' name=\'id_conta_field\' class=\'number\' value=\'$id_conta\' onchange=\'fill_fields()\'></td>";
+    $html .= "<td colspan=\'2\'></td>";
+    $html .= "</tr>";
 
     // Nome
-    echo "<tr class='tab_bg_1'>";
-    echo "<th width='3%'>Nome</th>";
-    echo "<td width='29%'><input type='text' id='nome_field' name='nome_field' value='$nome'></td>";
-    echo "<td colspan='2'></td>";
-    echo "</tr>";
+    $html .= "<tr class=\'tab_bg_1\'>";
+    $html .= "<th width=\'3%\'>Nome</th>";
+    $html .= "<td width=\'29%\'><input type=\'text\' id=\'nome_field\' name=\'nome_field\' value=\'$nome\'></td>";
+    $html .= "<td colspan=\'2\'></td>";
+    $html .= "</tr>";
 
     // CPF
-    echo "<tr class='tab_bg_1'>";
-    echo "<th width='3%'>CPF</th>";
-    echo "<td width='29%'><input type='text' id='cpf_field' name='cpf_field' class='cpf' value='$cpf'></td>";
-    echo "<td colspan='2'></td>";
-    echo "</tr>";
+    $html .= "<tr class=\'tab_bg_1\'>";
+    $html .= "<th width=\'3%\'>CPF</th>";
+    $html .= "<td width=\'29%\'><input type=\'text\' id=\'cpf_field\' name=\'cpf_field\' class=\'cpf\' value=\'$cpf\'></td>";
+    $html .= "<td colspan=\'2\'></td>";
+    $html .= "</tr>";
 
     // Produto
-    echo "<tr class='tab_bg_1'>";
-    echo "<th width='3%'>Produto</th>";
-    echo "<td width='29%'><input type='text' id='produto_field' name='produto_field' value='$produto'></td>";
-    echo "<td colspan='2'></td>";
-    echo "</tr>";
+    $html .= "<tr class=\'tab_bg_1\'>";
+    $html .= "<th width=\'3%\'>Produto</th>";
+    $html .= "<td width=\'29%\'><input type=\'text\' id=\'produto_field\' name=\'produto_field\' value=\'$produto\'></td>";
+    $html .= "<td colspan=\'2\'></td>";
+    $html .= "</tr>";
 
     // Telefone
-    echo "<tr class='tab_bg_1'>";
-    echo "<th width='3%'>Telefone</th>";
-    echo "<td width='29%'><input type='text' id='telefone_field' name='telefone_field' class='telefone' value='$telefone'></td>";
-    echo "<td colspan='2'></td>";
-    echo "</tr>";
+    $html .= "<tr class=\'tab_bg_1\'>";
+    $html .= "<th width=\'3%\'>Telefone</th>";
+    $html .= "<td width=\'29%\'><input type=\'text\' id=\'telefone_field\' name=\'telefone_field\' class=\'telefone\' value=\'$telefone\'></td>";
+    $html .= "<td colspan=\'2\'></td>";
+    $html .= "</tr>";
 
     // E-mail
-    echo "<tr class='tab_bg_1'>";
-    echo "<th width='3%'>E-mail</th>";
-    echo "<td width='29%'><input type='text' id='email_field' name='email_field' value='$email'></td>";
-    echo "<td colspan='2'></td>";
-    echo "</tr>";
+    $html .= "<tr class=\'tab_bg_1\'>";
+    $html .= "<th width=\'3%\'>E-mail</th>";
+    $html .= "<td width=\'29%\'><input type=\'text\' id=\'email_field\' name=\'email_field\' value=\'$email\'></td>";
+    $html .= "<td colspan=\'2\'></td>";
+    $html .= "</tr>";
 
-    echo "</tbody>";
-    echo "</table>";
+    $html .= "</tbody>";
+    $html .= "</table>";
+
+    return $html;
   }
 
   static function findByIDConta($id_conta) {
@@ -130,6 +132,24 @@ class PluginFortbrasilTicket extends CommonITILObject {
     }
 
     return $fields;
+  }
+
+  static function showForm($ID, $ticket) {
+    $template_preview = '0';
+    $type             = $ticket->fields['type'];
+    $category         = $ticket->fields['itilcategories_id'];
+    $entity           = $ticket->fields['entities_id'];
+
+    $tt         = $ticket->getTicketTemplateToUse($template_preview, $type, $category, $entity);
+    $is_enabled = PluginFortbrasilTemplate::isEnabled($tt->fields['id']);
+
+    if($is_enabled) {
+      $form = self::showCustomFields($ID);
+
+      echo '<script>';
+      echo "$('#mainformtable').after('$form');";
+      echo '</script>';
+    }
   }
 
   // Obtém o Ticket de acordo com o ID passado na URL
