@@ -50,9 +50,7 @@ class PluginFortbrasilTicket extends CommonITILObject {
     }
   }
 
-  static function showCustomFields() {
-    $ticket_id  = self::getTicketID();
-
+  static function showCustomFields($ticket_id) {
     $fields     = new self();
     $fields     = $fields->find("ticket_id = $ticket_id");
     $fields     = ($fields) ? array_values($fields)[0] : null;
@@ -146,7 +144,11 @@ class PluginFortbrasilTicket extends CommonITILObject {
     $is_enabled = PluginFortbrasilTemplate::isEnabled($tt->fields['id']);
 
     if($is_enabled) {
-      include_once('ticket.form.js.php');
+      $form = self::showCustomFields($ID);
+
+      echo '<script>';
+      echo "$('#mainformtable').after('$form');";
+      echo '</script>';
     }
   }
 
