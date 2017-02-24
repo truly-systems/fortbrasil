@@ -41,7 +41,7 @@ $(document).ready(function() {
 
   function show_checkbox() {
     var i = setInterval(function() {
-      if($('.footerRow').length) {
+      if($('.tab_bg_1').length) {
         clearInterval(i);
         inject_checkbox();
       }
@@ -49,7 +49,7 @@ $(document).ready(function() {
   }
 
   function inject_checkbox() {
-    $('.footerRow').before("<?php PluginFortbrasilTemplate::showCheckbox() ?>");
+    $('.tab_bg_1').after("<?php PluginFortbrasilTemplate::showCheckbox() ?>");
   }
 });
 
