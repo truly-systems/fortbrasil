@@ -53,8 +53,9 @@ class PluginFortbrasilTicket extends CommonITILObject {
   static function showCustomFields() {
     $ticket_id  = self::getTicketID();
 
-    $entity     = new Entity();
-    $entity->getFromDB(0);
+    $active_entity = $_SESSION['glpiactive_entity'];
+    $entity        = new Entity();
+    $entity->getFromDB($active_entity);
 
     $template_id  = $entity->getField('tickettemplates_id');
     $enabled      = PluginFortbrasilTemplate::isEnabled($template_id);
@@ -123,8 +124,6 @@ class PluginFortbrasilTicket extends CommonITILObject {
 
       echo $html;
     }
-
-    echo $_SESSION['glpiactive_entity'];
   }
 
   static function findByIDConta($id_conta) {
@@ -145,26 +144,6 @@ class PluginFortbrasilTicket extends CommonITILObject {
 
     return $fields;
   }
-
-  /*
-  static function showForm($ID, $ticket) {
-    $template_preview = '0';
-    $type             = $ticket->fields['type'];
-    $category         = $ticket->fields['itilcategories_id'];
-    $entity           = $ticket->fields['entities_id'];
-
-    $tt         = $ticket->getTicketTemplateToUse($template_preview, $type, $category, $entity);
-    $is_enabled = PluginFortbrasilTemplate::isEnabled($tt->fields['id']);
-
-    if($is_enabled) {
-      $form = self::showCustomFields($ID);
-
-      echo '<script>';
-      echo "$('#mainformtable').after('$form');";
-      echo '</script>';
-    }
-  }
-  */
 
   // Obtém o Ticket de acordo com o ID passado na URL
   private static function getTicketID() {
