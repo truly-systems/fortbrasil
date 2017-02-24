@@ -12,24 +12,18 @@ class PluginFortbrasilTemplate extends CommonITILObject {
     }
   }
 
-  static function showCheckbox($enabled) {
+  static function showCheckbox() {
+    $template_id = self::getTemplateID();
+
+    $enabled = self::isEnabled($template_id);
     $checked = $enabled ? 'checked' : '';
 
     $html = '<tr>';
     $html .= '<td>Incluir</td>';
-    $html .= '<td><input type="checkbox" name="active" ' . $checked .'></td>';
+    $html .= "<td><input type='checkbox' name='active' " . $checked . "></td>";
     $html .= '</tr>';
 
-    return $html;
-  }
-
-  static function showForm($ID, $template) {
-    $enabled  = self::isEnabled($ID);
-    $checkbox = self::showCheckbox($enabled);
-
-    echo '<script>';
-    echo "$('.footerRow').before('$checkbox');";
-    echo '</script>';
+    echo $html;
   }
 
   static function isEnabled($template_id) {
@@ -62,6 +56,21 @@ class PluginFortbrasilTemplate extends CommonITILObject {
 
     $query = "DELETE FROM $table WHERE `template_id` = '$template_id'";
     $DB->query($query);
+  }
+
+  // Obtém o Template de acordo com o ID passado na URL
+  private static function getTemplateID() {
+    $template = null;
+
+    $url = $_SERVER['HTTP_REFERER'];
+    $parts = parse_url($url);
+
+    if(isset($parts['query'])) {
+      parse_str($parts['query'], $query);
+      $template = isset($query['id']) ? $query['id'] : null;
+    }
+
+    return $template;
   }
 }
 

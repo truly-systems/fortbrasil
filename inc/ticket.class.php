@@ -50,69 +50,81 @@ class PluginFortbrasilTicket extends CommonITILObject {
     }
   }
 
-  static function showCustomFields($ticket_id) {
-    $fields     = new self();
-    $fields     = $fields->find("ticket_id = $ticket_id");
-    $fields     = ($fields) ? array_values($fields)[0] : null;
+  static function showCustomFields() {
+    $ticket_id  = self::getTicketID();
 
-    $id_conta   = ($fields) ? $fields['id_conta'] : null;
-    $nome       = ($fields) ? $fields['nome'] : null;
-    $cpf        = ($fields) ? $fields['cpf'] : null;
-    $produto    = ($fields) ? $fields['produto'] : null;
-    $telefone   = ($fields) ? $fields['telefone'] : null;
-    $email      = ($fields) ? $fields['email'] : null;
+    $entity     = new Entity();
+    $entity->getFromDB(0);
 
-    $html = '';
+    $template_id  = $entity->getField('tickettemplates_id');
+    $enabled      = PluginFortbrasilTemplate::isEnabled($template_id);
 
-    $html .= "<table class=\'tab_cadre_fixe\'>";
-    $html .= "<tbody>";
+    if($enabled) {
+      $fields     = new self();
+      $fields     = $fields->find("ticket_id = $ticket_id");
+      $fields     = ($fields) ? array_values($fields)[0] : null;
 
-    // ID Conta
-    $html .= "<tr class=\'tab_bg_1\'>";
-    $html .= "<th width=\'13%\'>ID Conta</th>";
-    $html .= "<td width=\'29%\'><input type=\'text\' id=\'id_conta_field\' name=\'id_conta_field\' class=\'number\' value=\'$id_conta\' onchange=\'fill_fields()\'></td>";
-    $html .= "<td colspan=\'2\'></td>";
-    $html .= "</tr>";
+      $id_conta   = ($fields) ? $fields['id_conta'] : null;
+      $nome       = ($fields) ? $fields['nome'] : null;
+      $cpf        = ($fields) ? $fields['cpf'] : null;
+      $produto    = ($fields) ? $fields['produto'] : null;
+      $telefone   = ($fields) ? $fields['telefone'] : null;
+      $email      = ($fields) ? $fields['email'] : null;
 
-    // Nome
-    $html .= "<tr class=\'tab_bg_1\'>";
-    $html .= "<th width=\'3%\'>Nome</th>";
-    $html .= "<td width=\'29%\'><input type=\'text\' id=\'nome_field\' name=\'nome_field\' value=\'$nome\'></td>";
-    $html .= "<td colspan=\'2\'></td>";
-    $html .= "</tr>";
+      $html = '';
 
-    // CPF
-    $html .= "<tr class=\'tab_bg_1\'>";
-    $html .= "<th width=\'3%\'>CPF</th>";
-    $html .= "<td width=\'29%\'><input type=\'text\' id=\'cpf_field\' name=\'cpf_field\' class=\'cpf\' value=\'$cpf\'></td>";
-    $html .= "<td colspan=\'2\'></td>";
-    $html .= "</tr>";
+      $html .= "<table class=\'tab_cadre_fixe\'>";
+      $html .= "<tbody>";
 
-    // Produto
-    $html .= "<tr class=\'tab_bg_1\'>";
-    $html .= "<th width=\'3%\'>Produto</th>";
-    $html .= "<td width=\'29%\'><input type=\'text\' id=\'produto_field\' name=\'produto_field\' value=\'$produto\'></td>";
-    $html .= "<td colspan=\'2\'></td>";
-    $html .= "</tr>";
+      // ID Conta
+      $html .= "<tr class=\'tab_bg_1\'>";
+      $html .= "<th width=\'13%\'>ID Conta</th>";
+      $html .= "<td width=\'29%\'><input type=\'text\' id=\'id_conta_field\' name=\'id_conta_field\' class=\'number\' value=\'$id_conta\' onchange=\'fill_fields()\'></td>";
+      $html .= "<td colspan=\'2\'></td>";
+      $html .= "</tr>";
 
-    // Telefone
-    $html .= "<tr class=\'tab_bg_1\'>";
-    $html .= "<th width=\'3%\'>Telefone</th>";
-    $html .= "<td width=\'29%\'><input type=\'text\' id=\'telefone_field\' name=\'telefone_field\' class=\'telefone\' value=\'$telefone\'></td>";
-    $html .= "<td colspan=\'2\'></td>";
-    $html .= "</tr>";
+      // Nome
+      $html .= "<tr class=\'tab_bg_1\'>";
+      $html .= "<th width=\'3%\'>Nome</th>";
+      $html .= "<td width=\'29%\'><input type=\'text\' id=\'nome_field\' name=\'nome_field\' value=\'$nome\'></td>";
+      $html .= "<td colspan=\'2\'></td>";
+      $html .= "</tr>";
 
-    // E-mail
-    $html .= "<tr class=\'tab_bg_1\'>";
-    $html .= "<th width=\'3%\'>E-mail</th>";
-    $html .= "<td width=\'29%\'><input type=\'text\' id=\'email_field\' name=\'email_field\' value=\'$email\'></td>";
-    $html .= "<td colspan=\'2\'></td>";
-    $html .= "</tr>";
+      // CPF
+      $html .= "<tr class=\'tab_bg_1\'>";
+      $html .= "<th width=\'3%\'>CPF</th>";
+      $html .= "<td width=\'29%\'><input type=\'text\' id=\'cpf_field\' name=\'cpf_field\' class=\'cpf\' value=\'$cpf\'></td>";
+      $html .= "<td colspan=\'2\'></td>";
+      $html .= "</tr>";
 
-    $html .= "</tbody>";
-    $html .= "</table>";
+      // Produto
+      $html .= "<tr class=\'tab_bg_1\'>";
+      $html .= "<th width=\'3%\'>Produto</th>";
+      $html .= "<td width=\'29%\'><input type=\'text\' id=\'produto_field\' name=\'produto_field\' value=\'$produto\'></td>";
+      $html .= "<td colspan=\'2\'></td>";
+      $html .= "</tr>";
 
-    return $html;
+      // Telefone
+      $html .= "<tr class=\'tab_bg_1\'>";
+      $html .= "<th width=\'3%\'>Telefone</th>";
+      $html .= "<td width=\'29%\'><input type=\'text\' id=\'telefone_field\' name=\'telefone_field\' class=\'telefone\' value=\'$telefone\'></td>";
+      $html .= "<td colspan=\'2\'></td>";
+      $html .= "</tr>";
+
+      // E-mail
+      $html .= "<tr class=\'tab_bg_1\'>";
+      $html .= "<th width=\'3%\'>E-mail</th>";
+      $html .= "<td width=\'29%\'><input type=\'text\' id=\'email_field\' name=\'email_field\' value=\'$email\'></td>";
+      $html .= "<td colspan=\'2\'></td>";
+      $html .= "</tr>";
+
+      $html .= "</tbody>";
+      $html .= "</table>";
+
+      echo $html;
+    }
+
+    echo $_SESSION['glpiactive_entity'];
   }
 
   static function findByIDConta($id_conta) {
@@ -134,6 +146,7 @@ class PluginFortbrasilTicket extends CommonITILObject {
     return $fields;
   }
 
+  /*
   static function showForm($ID, $ticket) {
     $template_preview = '0';
     $type             = $ticket->fields['type'];
@@ -151,6 +164,7 @@ class PluginFortbrasilTicket extends CommonITILObject {
       echo '</script>';
     }
   }
+  */
 
   // Obtém o Ticket de acordo com o ID passado na URL
   private static function getTicketID() {

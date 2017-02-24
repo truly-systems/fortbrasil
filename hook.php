@@ -118,16 +118,3 @@ function item_update_ticket(Ticket $item) {
 function pre_item_update_template(TicketTemplate $item) {
    PluginFortbrasilTemplate::save($item);
 }
-
-function post_show_item($params) {
-  if(!is_array($params['item'])) {
-    switch($params['item']->getType()) {
-      case 'Ticket':
-        PluginFortBrasilTicket::showForm($params['options']['id'], $params['item']);
-        break;
-      case 'TicketTemplate':
-        PluginFortbrasilTemplate::showForm($params['options']['id'], $params['item']);
-        break;
-    }
-  }
-}
