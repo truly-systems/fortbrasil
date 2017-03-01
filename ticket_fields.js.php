@@ -1,9 +1,6 @@
 <?php
-
-include ('../../inc/includes.php');
-
-header('Content-type: application/javascript');
-
+  include ('../../inc/includes.php');
+  header('Content-type: application/javascript');
 ?>
 
 $(window).load(function() {
