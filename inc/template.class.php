@@ -1,6 +1,17 @@
 <?php
 
 class PluginFortbrasilTemplate extends CommonITILObject {
+  
+  static function save(TicketTemplate $item) {
+    $template_id = $item->input['id'];
+    $active      = isset($item->input['active']);
+
+    if($active) {
+      self::enable($template_id);
+    } else {
+      self::disable($template_id);
+    }
+  }
 
   static function showCheckbox() {
     $template_id = self::getTemplateID();

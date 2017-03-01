@@ -114,3 +114,7 @@ function item_update_ticket(Ticket $item) {
     PluginFortbrasilTicket::save($item, $operation);
   }
 }
+
+function pre_item_update_template(TicketTemplate $item) {
+  PluginFortbrasilTemplate::save($item);
+}
