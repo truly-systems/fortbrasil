@@ -14,6 +14,6 @@ $(window).load(function() {
   }
   
   function inject_checkbox() {
-    $('.tab_bg_1').after("<?php PluginFortbrasilTemplate::showCheckbox() ?>");
+    $('.tab_bg_1:first').after("<?php PluginFortbrasilTemplate::showCheckbox() ?>");
   }
 });

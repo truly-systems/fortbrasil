@@ -51,66 +51,76 @@ class PluginFortbrasilTicket extends CommonITILObject {
   }
 
   static function showCustomFields() {
-    $ticket_id  = self::getTicketID();
+    $active_entity = $_SESSION['glpiactive_entity'];
+    $entity        = new Entity();
 
-    $fields     = new self();
-    $fields     = $fields->find("ticket_id = $ticket_id");
-    $fields     = ($fields) ? array_values($fields)[0] : null;
+    $entity->getFromDB($active_entity);
 
-    $id_conta   = ($fields) ? $fields['id_conta'] : null;
-    $nome       = ($fields) ? $fields['nome'] : null;
-    $cpf        = ($fields) ? $fields['cpf'] : null;
-    $produto    = ($fields) ? $fields['produto'] : null;
-    $telefone   = ($fields) ? $fields['telefone'] : null;
-    $email      = ($fields) ? $fields['email'] : null;
+    $template_id  = $entity->getField('tickettemplates_id');
+    $enabled      = PluginFortbrasilTemplate::isEnabled($template_id);
+    
+    if($enabled) {
+      $ticket_id  = self::getTicketID();
 
-    echo "<table class='tab_cadre_fixe'>";
-    echo "<tbody>";
+      $fields     = new self();
+      $fields     = $fields->find("ticket_id = $ticket_id");
+      $fields     = ($fields) ? array_values($fields)[0] : null;
 
-    // ID Conta
-    echo "<tr class='tab_bg_1'>";
-    echo "<th width='13%'>ID Conta</th>";
-    echo "<td width='29%'><input type='text' id='id_conta_field' name='id_conta_field' class='number' value='$id_conta' onchange='fill_fields()'></td>";
-    echo "<td colspan='2'></td>";
-    echo "</tr>";
+      $id_conta   = ($fields) ? $fields['id_conta'] : null;
+      $nome       = ($fields) ? $fields['nome'] : null;
+      $cpf        = ($fields) ? $fields['cpf'] : null;
+      $produto    = ($fields) ? $fields['produto'] : null;
+      $telefone   = ($fields) ? $fields['telefone'] : null;
+      $email      = ($fields) ? $fields['email'] : null;
 
-    // Nome
-    echo "<tr class='tab_bg_1'>";
-    echo "<th width='3%'>Nome</th>";
-    echo "<td width='29%'><input type='text' id='nome_field' name='nome_field' value='$nome'></td>";
-    echo "<td colspan='2'></td>";
-    echo "</tr>";
+      echo "<table class='tab_cadre_fixe'>";
+      echo "<tbody>";
 
-    // CPF
-    echo "<tr class='tab_bg_1'>";
-    echo "<th width='3%'>CPF</th>";
-    echo "<td width='29%'><input type='text' id='cpf_field' name='cpf_field' class='cpf' value='$cpf'></td>";
-    echo "<td colspan='2'></td>";
-    echo "</tr>";
+      // ID Conta
+      echo "<tr class='tab_bg_1'>";
+      echo "<th width='13%'>ID Conta</th>";
+      echo "<td width='29%'><input type='text' id='id_conta_field' name='id_conta_field' class='number' value='$id_conta' onchange='fill_fields()'></td>";
+      echo "<td colspan='2'></td>";
+      echo "</tr>";
 
-    // Produto
-    echo "<tr class='tab_bg_1'>";
-    echo "<th width='3%'>Produto</th>";
-    echo "<td width='29%'><input type='text' id='produto_field' name='produto_field' value='$produto'></td>";
-    echo "<td colspan='2'></td>";
-    echo "</tr>";
+      // Nome
+      echo "<tr class='tab_bg_1'>";
+      echo "<th width='3%'>Nome</th>";
+      echo "<td width='29%'><input type='text' id='nome_field' name='nome_field' value='$nome'></td>";
+      echo "<td colspan='2'></td>";
+      echo "</tr>";
 
-    // Telefone
-    echo "<tr class='tab_bg_1'>";
-    echo "<th width='3%'>Telefone</th>";
-    echo "<td width='29%'><input type='text' id='telefone_field' name='telefone_field' class='telefone' value='$telefone'></td>";
-    echo "<td colspan='2'></td>";
-    echo "</tr>";
+      // CPF
+      echo "<tr class='tab_bg_1'>";
+      echo "<th width='3%'>CPF</th>";
+      echo "<td width='29%'><input type='text' id='cpf_field' name='cpf_field' class='cpf' value='$cpf'></td>";
+      echo "<td colspan='2'></td>";
+      echo "</tr>";
 
-    // E-mail
-    echo "<tr class='tab_bg_1'>";
-    echo "<th width='3%'>E-mail</th>";
-    echo "<td width='29%'><input type='text' id='email_field' name='email_field' value='$email'></td>";
-    echo "<td colspan='2'></td>";
-    echo "</tr>";
+      // Produto
+      echo "<tr class='tab_bg_1'>";
+      echo "<th width='3%'>Produto</th>";
+      echo "<td width='29%'><input type='text' id='produto_field' name='produto_field' value='$produto'></td>";
+      echo "<td colspan='2'></td>";
+      echo "</tr>";
 
-    echo "</tbody>";
-    echo "</table>";
+      // Telefone
+      echo "<tr class='tab_bg_1'>";
+      echo "<th width='3%'>Telefone</th>";
+      echo "<td width='29%'><input type='text' id='telefone_field' name='telefone_field' class='telefone' value='$telefone'></td>";
+      echo "<td colspan='2'></td>";
+      echo "</tr>";
+
+      // E-mail
+      echo "<tr class='tab_bg_1'>";
+      echo "<th width='3%'>E-mail</th>";
+      echo "<td width='29%'><input type='text' id='email_field' name='email_field' value='$email'></td>";
+      echo "<td colspan='2'></td>";
+      echo "</tr>";
+
+      echo "</tbody>";
+      echo "</table>";
+    }
   }
 
   static function findByIDConta($id_conta) {
