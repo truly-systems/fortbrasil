@@ -10,7 +10,7 @@ $(window).load(function() {
         clearInterval(i);
         inject_checkbox();
       }
-    }, 100);
+    }, 250);
   }
   
   function inject_checkbox() {
