@@ -1,9 +1,10 @@
 <?php
 
 class PluginFortbrasilCron {
+
   static function getTypeName($nb = 0) {
-      return 'FortBrasil';
-   }
+    return 'FortBrasil';
+  }
 
   static function cronInfo($name) {
     switch($name) {
@@ -27,9 +28,9 @@ class PluginFortbrasilCron {
       $updated_users = 0;
 
       foreach($data as $row) {
-        $user   = new User();
-        $user_id = $user->getIdByName($row['ID_CONTA']);
-        $email  = $row['EMAIL'];
+        $user     = new User();
+        $user_id  = $user->getIdByName($row['ID_CONTA']);
+        $email    = $row['EMAIL'];
 
         $user->fields['name']       = $row['ID_CONTA'];
         $user->fields['phone']      = $row['CPF'];
@@ -108,11 +109,11 @@ class PluginFortbrasilCron {
     $telefone = $user->fields['mobile'];
 
     $query = "UPDATE `$table`
-            SET `phone` = '$cpf',
-            `firstname` = '$nome',
-            `realname` = '$produto',
-            `mobile` = '$telefone'
-            WHERE `name` = '$id_conta'";
+              SET `phone` = '$cpf',
+              `firstname` = '$nome',
+              `realname` = '$produto',
+              `mobile` = '$telefone'
+              WHERE `name` = '$id_conta'";
 
     $DB->query($query);
     self::setDefaultEmail($user->fields['id'], $email);

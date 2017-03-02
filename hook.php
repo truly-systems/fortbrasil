@@ -47,7 +47,7 @@ function plugin_fortbrasil_install() {
       PRIMARY KEY(`id`)
     ) ENGINE=MyISAM CHARSET=utf8 COLLATE=utf8_unicode_ci";
 
-    $DB->query($query) or die('error glpi_plugin_fortbrasil_tickets' . $DB->error());
+    $DB->query($query) or die('error glpi_plugin_fortbrasil_tickets ' . $DB->error());
   }
 
   if(!TableExists('glpi_plugin_fortbrasil_templates')) {
@@ -77,7 +77,7 @@ function plugin_fortbrasil_uninstall() {
     $query = "DROP TABLE `glpi_plugin_fortbrasil_tickets`";
     $DB->query($query) or die('error deleting glpi_plugin_fortbrasil_tickets');
   }
-
+  
   if(TableExists('glpi_plugin_fortbrasil_templates')) {
     $query = "DROP TABLE `glpi_plugin_fortbrasil_templates`";
     $DB->query($query) or die('error deleting glpi_plugin_fortbrasil_templates');
@@ -89,12 +89,12 @@ function plugin_fortbrasil_uninstall() {
 // HOOKS
 function pre_item_add_ticket(Ticket $item) {
   $operation = 'create';
-  PluginFortBrasilTicket::prepareInput($item, $operation);
+  PluginFortbrasilTicket::prepareInput($item, $operation);
 }
 
 function item_add_ticket(Ticket $item) {
   $operation = 'create';
-  PluginFortBrasilTicket::save($item, $operation);
+  PluginFortbrasilTicket::save($item, $operation);
 }
 
 function pre_item_update_ticket(Ticket $item) {
@@ -102,7 +102,7 @@ function pre_item_update_ticket(Ticket $item) {
 
   if($update) {
     $operation = 'update';
-    PluginFortBrasilTicket::prepareInput($item, $operation);
+    PluginFortbrasilTicket::prepareInput($item, $operation);
   }
 }
 
@@ -111,10 +111,10 @@ function item_update_ticket(Ticket $item) {
 
   if($update) {
     $operation = 'update';
-    PluginFortBrasilTicket::save($item, $operation);
+    PluginFortbrasilTicket::save($item, $operation);
   }
 }
 
 function pre_item_update_template(TicketTemplate $item) {
-   PluginFortbrasilTemplate::save($item);
+  PluginFortbrasilTemplate::save($item);
 }

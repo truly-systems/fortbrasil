@@ -3,16 +3,9 @@
   header('Content-type: application/javascript');
 ?>
 
-$(document).ready(function() {
-  var url = window.location.pathname;
-
-  if(url.match(/ticket\.form\.php/)) {
-    show_ticket_form();
-  } else if(url.match(/tickettemplate\.form\.php/)) {
-    show_checkbox();
-  }
-
-  function show_ticket_form() {
+$(window).load(function() {
+  if(window.location.pathname.match(/ticket\.form\.php/)) {
+    <!-- Máscara para telefone de 9 digítos -->
     var SPMaskBehavior = function (val) {
       return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
     },
@@ -22,9 +15,9 @@ $(document).ready(function() {
       }
     };
 
-    $('.number').mask('#');
     $('.cpf').mask('000.000.000-00');
     $('.telefone').mask(SPMaskBehavior, spOptions);
+    $('.number').mask('#');
 
     var i = setInterval(function() {
       if($('#mainformtable').length) {
@@ -36,20 +29,7 @@ $(document).ready(function() {
 
   function inject_custom_fields() {
     $('#mainformtable').after("<div id='fortbrasil-container'></div>");
-    $('#fortbrasil-container').append("<?php PluginFortbrasilTicket::showCustomFields() ?>");
-  }
-
-  function show_checkbox() {
-    var i = setInterval(function() {
-      if($('.tab_bg_1').length) {
-        clearInterval(i);
-        inject_checkbox();
-      }
-    }, 100);
-  }
-
-  function inject_checkbox() {
-    $('.tab_bg_1').after("<?php PluginFortbrasilTemplate::showCheckbox() ?>");
+    $('#fortbrasil-container').append("<?php PluginFortBrasilTicket::showCustomFields() ?>");
   }
 });
 

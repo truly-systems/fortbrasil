@@ -1,6 +1,7 @@
 <?php
 
 class PluginFortbrasilTemplate extends CommonITILObject {
+  
   static function save(TicketTemplate $item) {
     $template_id = $item->input['id'];
     $active      = isset($item->input['active']);
@@ -72,6 +73,7 @@ class PluginFortbrasilTemplate extends CommonITILObject {
 
     return $template;
   }
+
 }
 
 ?>
