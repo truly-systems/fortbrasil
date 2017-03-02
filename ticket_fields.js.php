@@ -24,7 +24,7 @@ $(window).load(function() {
         clearInterval(i);
         inject_custom_fields();
       }
-    }, 250);
+    }, 150);
   }
 
   function inject_custom_fields() {
