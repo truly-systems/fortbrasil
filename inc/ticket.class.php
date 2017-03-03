@@ -3,60 +3,71 @@
 class PluginFortbrasilTicket extends CommonITILObject {
 
   static function prepareInput(Ticket $item, $operation) {
-    // Get input values
-    $id_conta   = $item->input['id_conta_field'];
-    $nome       = $item->input['nome_field'];
-    $cpf        = $item->input['cpf_field'];
-    $produto    = $item->input['produto_field'];
-    $telefone   = $item->input['telefone_field'];
-    $email      = $item->input['email_field'];
-    $content    = $item->input['content'];
+    $template_id  = self::getTemplateID();
+    $category_id  = $item->fields['itilcategories_id'];
+    $type         = $item->fields['type'];
 
-    $ddi = '55';
+    $enabled      = PluginFortbrasilTemplate::isEnabled($template_id, $category_id, $type);
+    
+    if($enabled) {
+      // Get input values
+      $id_conta   = $item->input['id_conta_field'];
+      $nome       = $item->input['nome_field'];
+      $cpf        = $item->input['cpf_field'];
+      $produto    = $item->input['produto_field'];
+      $telefone   = $item->input['telefone_field'];
+      $email      = $item->input['email_field'];
+      $content    = $item->input['content'];
 
-    // Remove non digit characters
-    $chars    = array('(', ')', '-', ' ');
-    $telefone = str_replace($chars, '', $telefone);
+      $ddi = '55';
 
-    $item->input['name']    = "$ddi$telefone";
-    $item->input['content'] = self::prepareContentInput($content, $id_conta, $cpf, $nome);
+      // Remove non digit characters
+      $chars    = array('(', ')', '-', ' ');
+      $telefone = str_replace($chars, '', $telefone);
 
-    if($operation == 'create') {
-      $item->input['_users_id_observer_notif']['use_notification']  = array(1);
-      $item->input['_users_id_observer_notif']['alternative_email'] = array($email);
-    } else if($operation == 'update') {
-      $ticket_id = $item->fields['id'];
-      $ticket_user = new Ticket_User();
-      $ticket_user->getFromDBByQuery("WHERE `tickets_id` = '$ticket_id' AND `type` = '3'");
-      $ticket_user->fields['alternative_email'] = $email;
-      $ticket_user->updateInDB(array('alternative_email'));
+      $item->input['name']    = "$ddi$telefone";
+      $item->input['content'] = self::prepareContentInput($content, $id_conta, $cpf, $nome);
+
+      if($operation == 'create') {
+        $item->input['_users_id_observer_notif']['use_notification']  = array(1);
+        $item->input['_users_id_observer_notif']['alternative_email'] = array($email);
+      } else if($operation == 'update') {
+        $ticket_id = $item->fields['id'];
+        $ticket_user = new Ticket_User();
+        $ticket_user->getFromDBByQuery("WHERE `tickets_id` = '$ticket_id' AND `type` = '3'");
+        $ticket_user->fields['alternative_email'] = $email;
+        $ticket_user->updateInDB(array('alternative_email'));
+      }
     }
   }
 
   static function save(Ticket $item, $operation) {
-    // Get input values
-    $ticket_id  = $item->fields['id'];
-    $id_conta   = $item->input['id_conta_field'];
-    $nome       = $item->input['nome_field'];
-    $cpf        = $item->input['cpf_field'];
-    $produto    = $item->input['produto_field'];
-    $telefone   = $item->input['telefone_field'];
-    $email      = $item->input['email_field'];
+    $template_id  = self::getTemplateID();
+    $category_id  = $item->fields['itilcategories_id'];
+    $type         = $item->fields['type'];
 
-    if($operation == 'create') {
-      self::createTicket($ticket_id, $id_conta, $nome, $cpf, $produto, $telefone, $email);
-    } else if($operation == 'update') {
-      self::updateTicket($ticket_id, $id_conta, $nome, $cpf, $produto, $telefone, $email);
+    $enabled      = PluginFortbrasilTemplate::isEnabled($template_id, $category_id, $type);
+    
+    if($enabled) {
+      // Get input values
+      $ticket_id  = $item->fields['id'];
+      $id_conta   = $item->input['id_conta_field'];
+      $nome       = $item->input['nome_field'];
+      $cpf        = $item->input['cpf_field'];
+      $produto    = $item->input['produto_field'];
+      $telefone   = $item->input['telefone_field'];
+      $email      = $item->input['email_field'];
+
+      if($operation == 'create') {
+        self::createTicket($ticket_id, $id_conta, $nome, $cpf, $produto, $telefone, $email);
+      } else if($operation == 'update') {
+        self::updateTicket($ticket_id, $id_conta, $nome, $cpf, $produto, $telefone, $email);
+      }
     }
   }
 
   static function showCustomFields($category_id, $type) {
-    $active_entity = $_SESSION['glpiactive_entity'];
-    $entity        = new Entity();
-
-    $entity->getFromDB($active_entity);
-
-    $template_id  = $entity->getField('tickettemplates_id');
+    $template_id  = self::getTemplateID();
     $enabled      = PluginFortbrasilTemplate::isEnabled($template_id, $category_id, $type);
 
     if($enabled) {
@@ -155,6 +166,14 @@ class PluginFortbrasilTicket extends CommonITILObject {
     }
 
     return $ticket;
+  }
+  
+  private static function getTemplateID() {
+    $active_entity = $_SESSION['glpiactive_entity'];
+    $entity        = new Entity();
+
+    $entity->getFromDB($active_entity);
+    return $entity->getField('tickettemplates_id');
   }
 
   private static function prepareContentInput($content, $id_conta, $cpf, $nome) {

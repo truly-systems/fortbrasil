@@ -88,17 +88,13 @@ function plugin_fortbrasil_uninstall() {
 
 // HOOKS
 function pre_item_add_ticket(Ticket $item) {
-  if(is_template_enabled()) {
-    $operation = 'create';
-    PluginFortbrasilTicket::prepareInput($item, $operation);
-  }
+  $operation = 'create';
+  PluginFortbrasilTicket::prepareInput($item, $operation);
 }
 
 function item_add_ticket(Ticket $item) {
-  if(is_template_enabled()) {
-    $operation = 'create';
-    PluginFortbrasilTicket::save($item, $operation);
-  }
+  $operation = 'create';
+  PluginFortbrasilTicket::save($item, $operation);
 }
 
 function pre_item_update_ticket(Ticket $item) {
@@ -121,14 +117,4 @@ function item_update_ticket(Ticket $item) {
 
 function pre_item_update_template(TicketTemplate $item) {
   PluginFortbrasilTemplate::save($item);
-}
-
-function is_template_enabled() {
-  $active_entity = $_SESSION['glpiactive_entity'];
-  $entity        = new Entity();
-
-  $entity->getFromDB($active_entity);
-
-  $template_id  = $entity->getField('tickettemplates_id');
-  return PluginFortbrasilTemplate::isEnabled($template_id);
 }
