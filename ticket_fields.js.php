@@ -22,14 +22,27 @@ $(window).load(function() {
     var i = setInterval(function() {
       if($('#mainformtable').length) {
         clearInterval(i);
-        inject_custom_fields();
+        var category_id = $("[name='itilcategories_id']").val();
+        var type        = $("[name='type']").val();
+
+        inject_custom_fields(category_id, type);
       }
     }, 150);
   }
 
-  function inject_custom_fields() {
+  function inject_custom_fields(category_id, type) {
     $('#mainformtable').after("<div id='fortbrasil-container'></div>");
-    $('#fortbrasil-container').append("<?php PluginFortBrasilTicket::showCustomFields() ?>");
+    
+    var url = '../plugins/fortbrasil/front/ticket.form.php';
+    
+    $.ajax({
+      url: url,
+      data: { category_id: category_id, type: type },
+      dataType: 'html',
+      success: function(data) {
+        $('#fortbrasil-container').append(data);
+      }
+    });
   }
 });
 

@@ -50,15 +50,15 @@ class PluginFortbrasilTicket extends CommonITILObject {
     }
   }
 
-  static function showCustomFields() {
+  static function showCustomFields($category_id, $type) {
     $active_entity = $_SESSION['glpiactive_entity'];
     $entity        = new Entity();
 
     $entity->getFromDB($active_entity);
 
     $template_id  = $entity->getField('tickettemplates_id');
-    $enabled      = PluginFortbrasilTemplate::isEnabled($template_id);
-    
+    $enabled      = PluginFortbrasilTemplate::isEnabled($template_id, $category_id, $type);
+
     if($enabled) {
       $ticket_id  = self::getTicketID();
 
