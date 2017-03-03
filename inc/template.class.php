@@ -2,29 +2,43 @@
 
 class PluginFortbrasilTemplate extends CommonITILObject {
   
-  static function save(TicketTemplate $item) {
-    $template_id = $item->input['id'];
-    $active      = isset($item->input['active']);
+  function getTabNameForItem(CommonGLPI $item, $withtemplate=0) {
+    return __('FortBrasil - Campos', 'fortbrasil');
+  }
+  
+  static function displayTabContentForItem(CommonGLPI $item, $tabnum=1, $withtemplate=0) {
+    global $CFG_GLPI;
 
-    if($active) {
+    $action = $CFG_GLPI['root_doc'] . '/plugins/fortbrasil/front/template.form.php';
+    
+    $template_id  = $item->fields['id'];
+    $enabled      = self::isEnabled($template_id);
+
+    echo "<form name='form' action='$action' method='post'>";
+    echo "<div class='center' id='tabsbody'>";
+    echo "<table class='tab_cadre_fixe'>";
+    echo "<tr><th colspan='4'>" . __('FortBrasil - Campos Adicionais') . "</th></tr>";
+    echo "<td >" . __('Incluir campos:') . "</td>";
+    echo "<td colspan='3'>";
+    echo "<input type='hidden' name='template_id' value='$template_id'>";
+    Dropdown::showYesNo('enable', $enabled);
+    echo "</td></tr>";
+
+    echo "<tr class='tab_bg_2'>";
+    echo "<td colspan='4' class='center'>";
+    echo "<input type='submit' name='update' class='submit' value=\""._sx('button','Save')."\">";
+    echo "</td></tr>";
+
+    echo "</table></div>";
+    Html::closeForm();
+  }
+  
+  static function save($template_id, $enable) {
+    if($enable) {
       self::enable($template_id);
     } else {
       self::disable($template_id);
     }
-  }
-
-  static function showCheckbox() {
-    $template_id = self::getTemplateID();
-
-    $enabled = self::isEnabled($template_id);
-    $checked = $enabled ? 'checked' : '';
-
-    $html = '<tr>';
-    $html .= '<td>Incluir</td>';
-    $html .= "<td><input type='checkbox' name='active' " . $checked . "></td>";
-    $html .= '</tr>';
-
-    echo $html;
   }
 
   static function isEnabled($template_id) {
@@ -58,22 +72,6 @@ class PluginFortbrasilTemplate extends CommonITILObject {
     $query = "DELETE FROM $table WHERE `template_id` = '$template_id'";
     $DB->query($query);
   }
-
-  // Obtém o Template de acordo com o ID passado na URL
-  private static function getTemplateID() {
-    $template = null;
-
-    $url = $_SERVER['HTTP_REFERER'];
-    $parts = parse_url($url);
-
-    if(isset($parts['query'])) {
-      parse_str($parts['query'], $query);
-      $template = isset($query['id']) ? $query['id'] : null;
-    }
-
-    return $template;
-  }
-
 }
 
 ?>

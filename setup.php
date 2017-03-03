@@ -41,6 +41,8 @@ function plugin_init_fortbrasil() {
 
    $PLUGIN_HOOKS['csrf_compliant']['fortbrasil'] = true;
 
+   Plugin::registerClass('PluginFortbrasilTemplate', array('addtabon' => 'TicketTemplate'));
+
    $PLUGIN_HOOKS['pre_item_add']['fortbrasil']    = array('Ticket' => 'pre_item_add_ticket');
    $PLUGIN_HOOKS['item_add']['fortbrasil']        = array('Ticket' => 'item_add_ticket');
    $PLUGIN_HOOKS['item_update']['fortbrasil']     = array('Ticket' => 'item_update_ticket');
@@ -49,10 +51,9 @@ function plugin_init_fortbrasil() {
      'TicketTemplate' => 'pre_item_update_template'
    );
 
-   $PLUGIN_HOOKS['add_javascript']['fortbrasil'][] = 'ticket_fields.js.php';
-   $PLUGIN_HOOKS['add_javascript']['fortbrasil'][] = 'template_fields.js.php';
    $PLUGIN_HOOKS['add_javascript']['fortbrasil'][] = 'jquery.mask.js';
-}
+   $PLUGIN_HOOKS['add_javascript']['fortbrasil'][] = 'ticket_fields.js.php';
+ }
 
 /**
  * Get the name and the version of the plugin
