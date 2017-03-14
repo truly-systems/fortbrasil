@@ -3,3 +3,4 @@ vendor/
 files/*
 .gh_token
 *.min.*
+lib/data-integration/logs/*

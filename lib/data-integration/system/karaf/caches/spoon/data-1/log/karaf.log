@@ -1,0 +1,16 @@
+Mar 13, 2017 8:31:11 PM org.apache.karaf.main.Main launch
+INFO: Installing and starting initial bundles
+Mar 13, 2017 8:31:11 PM org.apache.karaf.main.Main launch
+INFO: All initial bundles installed and set to start
+Mar 13, 2017 8:31:12 PM org.apache.karaf.main.Main$KarafLockCallback lockAquired
+INFO: Lock acquired. Setting startlevel to 100
+Mar 13, 2017 9:08:47 PM org.apache.karaf.main.Main$KarafLockCallback lockAquired
+INFO: Lock acquired. Setting startlevel to 100
+Mar 13, 2017 11:41:01 PM org.apache.karaf.main.Main$KarafLockCallback lockAquired
+INFO: Lock acquired. Setting startlevel to 100
+Mar 14, 2017 1:56:48 PM org.apache.karaf.main.Main$KarafLockCallback lockAquired
+INFO: Lock acquired. Setting startlevel to 100
+Mar 14, 2017 2:52:53 PM org.apache.karaf.main.Main$KarafLockCallback lockAquired
+INFO: Lock acquired. Setting startlevel to 100
+Mar 14, 2017 3:18:51 PM org.apache.karaf.main.Main$KarafLockCallback lockAquired
+INFO: Lock acquired. Setting startlevel to 100
