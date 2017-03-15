@@ -11,32 +11,32 @@
     <parameters>
       <parameter>
         <name>DB</name>
-        <default_value>glpi</default_value>
+        <default_value/>
         <description/>
       </parameter>
       <parameter>
         <name>FILE</name>
-        <default_value>&#x2f;Users&#x2f;filipe&#x2f;Sites&#x2f;glpi-master&#x2f;plugins&#x2f;fortbrasil&#x2f;files&#x2f;users.csv</default_value>
+        <default_value/>
         <description/>
       </parameter>
       <parameter>
         <name>HOST</name>
-        <default_value>localhost</default_value>
+        <default_value/>
         <description/>
       </parameter>
       <parameter>
         <name>PASSWORD</name>
-        <default_value>filipe</default_value>
+        <default_value/>
         <description/>
       </parameter>
       <parameter>
         <name>PORT</name>
-        <default_value>3306</default_value>
+        <default_value/>
         <description/>
       </parameter>
       <parameter>
         <name>USER</name>
-        <default_value>root</default_value>
+        <default_value/>
         <description/>
       </parameter>
     </parameters>
