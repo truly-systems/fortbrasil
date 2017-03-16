@@ -510,48 +510,33 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>GET_USER_ID</from>
-      <to>SORT_ROWS</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>SORT_ROWS</from>
-      <to>UNIQUE_ROWS</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>GET_DEFAULT_FIELD</from>
-      <to>IMPORT_USER_EMAILS</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>RENAME_FIELDS</from>
       <to>IMPORT_USERS</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>IMPORT_USERS</from>
-      <to>DISCARD_EMPTY_EMAIL</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>DISCARD_EMPTY_EMAIL</from>
-      <to>DUMMY_EMPTY_EMAIL</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>DISCARD_EMPTY_EMAIL</from>
       <to>GET_USER_ID</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>UNIQUE_ROWS</from>
-      <to>DELETE</to>
+      <from>GET_USER_ID</from>
+      <to>EMPTY_EMAIL&#x3f;</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>DELETE</from>
-      <to>GET_DEFAULT_FIELD</to>
+      <from>EMPTY_EMAIL&#x3f;</from>
+      <to>DELETE_USER_EMAIL</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>EMPTY_EMAIL&#x3f;</from>
+      <to>ADD_IS_DEFAULT</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>ADD_IS_DEFAULT</from>
+      <to>SYNC_EMAIL</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -590,6 +575,117 @@
     <GUI>
       <xloc>272</xloc>
       <yloc>32</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>ADD_IS_DEFAULT</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>is_default</name>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>1</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>432</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>DELETE_USER_EMAIL</name>
+    <type>Delete</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>GLPI_CONNECTION</connection>
+    <commit>100000</commit>
+    <lookup>
+      <schema/>
+      <table>glpi_useremails</table>
+      <key>
+        <name>user_id</name>
+        <field>users_id</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+    </lookup>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>304</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>EMPTY_EMAIL&#x3f;</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<send_true_to>DELETE_USER_EMAIL</send_true_to>
+<send_false_to>ADD_IS_DEFAULT</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>email</leftvalue>
+ <function>IS NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -694,80 +790,6 @@
     </step>
 
   <step>
-    <name>DISCARD_EMPTY_EMAIL</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-<send_true_to>GET_USER_ID</send_true_to>
-<send_false_to>DUMMY_EMPTY_EMAIL</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>email</leftvalue>
- <function>IS NOT NULL</function>
- <rightvalue/>
- </condition>
-    </compare>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>768</xloc>
-      <yloc>144</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>GET_DEFAULT_FIELD</name>
-    <type>Constant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>is_default</name>
-        <type>Integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>1</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>96</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
     <name>GET_USER_ID</name>
     <type>DBLookup</type>
     <description/>
@@ -787,7 +809,7 @@
       <table>glpi_users</table>
       <orderby/>
       <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>Y</eat_row_on_failure>
+      <eat_row_on_failure>N</eat_row_on_failure>
       <key>
         <name>name</name>
         <field>name</field>
@@ -810,7 +832,7 @@
     </remotesteps>
     <GUI>
       <xloc>768</xloc>
-      <yloc>256</yloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -874,87 +896,6 @@
     <GUI>
       <xloc>768</xloc>
       <yloc>32</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>IMPORT_USER_EMAILS</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>GLPI_CONNECTION</connection>
-    <schema/>
-    <table>glpi_useremails</table>
-    <commit>100000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>email</column_name>
-          <stream_name>email</stream_name>
-        </field>
-        <field>
-          <column_name>users_id</column_name>
-          <stream_name>user_id</stream_name>
-        </field>
-        <field>
-          <column_name>is_default</column_name>
-          <stream_name>is_default</stream_name>
-        </field>
-    </fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>96</xloc>
-      <yloc>144</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>DUMMY_EMPTY_EMAIL</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>432</xloc>
-      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1114,91 +1055,8 @@
     </step>
 
   <step>
-    <name>SORT_ROWS</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
-      <prefix>out</prefix>
-      <sort_size>1000000</sort_size>
-      <free_memory/>
-      <compress>N</compress>
-      <compress_variable/>
-      <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>user_id</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>email</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>UNIQUE_ROWS</name>
-    <type>Unique</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-      <count_rows>N</count_rows>
-      <count_field/>
-      <reject_duplicate_row>N</reject_duplicate_row>
-      <error_description/>
-    <fields>      <field>        <name>email</name>
-        <case_insensitive>N</case_insensitive>
-        </field>      <field>        <name>user_id</name>
-        <case_insensitive>N</case_insensitive>
-        </field>      </fields>    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>432</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>DELETE</name>
-    <type>Delete</type>
+    <name>SYNC_EMAIL</name>
+    <type>InsertUpdate</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1209,6 +1067,7 @@
     </partitioning>
     <connection>GLPI_CONNECTION</connection>
     <commit>100000</commit>
+    <update_bypassed>N</update_bypassed>
     <lookup>
       <schema/>
       <table>glpi_useremails</table>
@@ -1218,6 +1077,27 @@
         <condition>&#x3d;</condition>
         <name2/>
       </key>
+      <key>
+        <name>is_default</name>
+        <field>is_default</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>users_id</name>
+        <rename>user_id</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>is_default</name>
+        <rename>is_default</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>email</name>
+        <rename>email</rename>
+        <update>Y</update>
+      </value>
     </lookup>
     <cluster_schema/>
     <remotesteps>
@@ -1228,7 +1108,7 @@
     </remotesteps>
     <GUI>
       <xloc>272</xloc>
-      <yloc>256</yloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
