@@ -495,23 +495,8 @@
   </connection>
   <order>
     <hop>
-      <from>FORMAT_PHONE_NUMBER</from>
-      <to>RENAME_FIELDS</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>READ_CSV</from>
-      <to>ADD_DDI</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>ADD_DDI</from>
       <to>FORMAT_PHONE_NUMBER</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>RENAME_FIELDS</from>
-      <to>IMPORT_USERS</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -537,6 +522,41 @@
     <hop>
       <from>ADD_IS_DEFAULT</from>
       <to>SYNC_EMAIL</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>READ_CSV</from>
+      <to>FORMAT_FIELDS</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>FORMAT_FIELDS</from>
+      <to>TRIM_VALUES</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>TRIM_VALUES</from>
+      <to>EMPTY_PHONE&#x3f;</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>EMPTY_PHONE&#x3f;</from>
+      <to>IMPORT_USERS</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>EMPTY_PHONE&#x3f;</from>
+      <to>ADD_DDI</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>FORMAT_PHONE_NUMBER</from>
+      <to>ORDER_FIELDS</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>ORDER_FIELDS</from>
+      <to>IMPORT_USERS</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -573,8 +593,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>272</xloc>
-      <yloc>32</yloc>
+      <xloc>640</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -612,8 +632,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>432</xloc>
-      <yloc>160</yloc>
+      <xloc>192</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -649,8 +669,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
-      <yloc>304</yloc>
+      <xloc>192</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -684,8 +704,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
-      <yloc>160</yloc>
+      <xloc>192</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -709,7 +729,7 @@
     <footer>N</footer>
     <format>DOS</format>
     <compression>None</compression>
-    <encoding/>
+    <encoding>UTF-8</encoding>
     <endedLine/>
     <fileNameInField>N</fileNameInField>
     <fileNameField/>
@@ -746,19 +766,7 @@
         <precision>-1</precision>
       </field>
       <field>
-        <name>DDD</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>TELEFONE</name>
+        <name>mobile</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -773,7 +781,7 @@
     <ConcatFields>
 <targetFieldName>mobile</targetFieldName>
 <targetFieldLength>0</targetFieldLength>
-<removeSelectedFields>N</removeSelectedFields>
+<removeSelectedFields>Y</removeSelectedFields>
     </ConcatFields>
     <cluster_schema/>
     <remotesteps>
@@ -783,8 +791,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>432</xloc>
-      <yloc>32</yloc>
+      <xloc>816</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -831,8 +839,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>768</xloc>
-      <yloc>160</yloc>
+      <xloc>336</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -894,8 +902,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>768</xloc>
-      <yloc>32</yloc>
+      <xloc>480</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -923,7 +931,7 @@
     <add_filename_result>N</add_filename_result>
     <parallel>N</parallel>
     <newline_possible>Y</newline_possible>
-    <encoding/>
+    <encoding>ISO-8859-1</encoding>
     <fields>
       <field>
         <name>ID_CONTA</name>
@@ -934,7 +942,7 @@
         <group>,</group>
         <length>-1</length>
         <precision>-1</precision>
-        <trim_type>both</trim_type>
+        <trim_type>none</trim_type>
       </field>
       <field>
         <name>CPF</name>
@@ -945,7 +953,7 @@
         <group>,</group>
         <length>-1</length>
         <precision>-1</precision>
-        <trim_type>both</trim_type>
+        <trim_type>none</trim_type>
       </field>
       <field>
         <name>NOME</name>
@@ -956,18 +964,7 @@
         <group>,</group>
         <length>-1</length>
         <precision>-1</precision>
-        <trim_type>both</trim_type>
-      </field>
-      <field>
-        <name>DDD</name>
-        <type>String</type>
-        <format/>
-        <currency>&#x24;</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>both</trim_type>
+        <trim_type>none</trim_type>
       </field>
       <field>
         <name>TELEFONE</name>
@@ -989,7 +986,7 @@
         <group>,</group>
         <length>-1</length>
         <precision>-1</precision>
-        <trim_type>both</trim_type>
+        <trim_type>none</trim_type>
       </field>
       <field>
         <name>PRODUTO</name>
@@ -1000,7 +997,7 @@
         <group>,</group>
         <length>-1</length>
         <precision>-1</precision>
-        <trim_type>both</trim_type>
+        <trim_type>none</trim_type>
       </field>
     </fields>
     <cluster_schema/>
@@ -1011,45 +1008,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>96</xloc>
-      <yloc>32</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>RENAME_FIELDS</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>      <field>        <name>ID_CONTA</name>
-        <rename>name</rename>
-      </field>      <field>        <name>CPF</name>
-        <rename>phone</rename>
-      </field>      <field>        <name>NOME</name>
-        <rename>firstname</rename>
-      </field>      <field>        <name>PRODUTO</name>
-        <rename>realname</rename>
-      </field>      <field>        <name>mobile</name>
-      </field>      <field>        <name>EMAIL</name>
-        <rename>email</rename>
-      </field>        <select_unspecified>N</select_unspecified>
-    </fields>    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>32</yloc>
+      <xloc>64</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1107,8 +1067,224 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>272</xloc>
-      <yloc>160</yloc>
+      <xloc>336</xloc>
+      <yloc>400</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>FORMAT_FIELDS</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>      <field>        <name>ID_CONTA</name>
+        <rename>name</rename>
+      </field>      <field>        <name>CPF</name>
+        <rename>phone</rename>
+      </field>      <field>        <name>NOME</name>
+        <rename>firstname</rename>
+      </field>      <field>        <name>TELEFONE</name>
+        <rename>mobile</rename>
+      </field>      <field>        <name>EMAIL</name>
+        <rename>email</rename>
+      </field>      <field>        <name>PRODUTO</name>
+        <rename>realname</rename>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>192</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>TRIM_VALUES</name>
+    <type>StringOperations</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>name</in_stream_name>
+        <out_stream_name/>
+        <trim_type>both</trim_type>
+        <lower_upper>none</lower_upper>
+        <padding_type>none</padding_type>
+        <pad_char/>
+        <pad_len/>
+        <init_cap>no</init_cap>
+        <mask_xml>none</mask_xml>
+        <digits>none</digits>
+        <remove_special_characters>none</remove_special_characters>
+      </field>
+      <field>
+        <in_stream_name>phone</in_stream_name>
+        <out_stream_name/>
+        <trim_type>both</trim_type>
+        <lower_upper>none</lower_upper>
+        <padding_type>none</padding_type>
+        <pad_char/>
+        <pad_len/>
+        <init_cap>no</init_cap>
+        <mask_xml>none</mask_xml>
+        <digits>none</digits>
+        <remove_special_characters>none</remove_special_characters>
+      </field>
+      <field>
+        <in_stream_name>firstname</in_stream_name>
+        <out_stream_name/>
+        <trim_type>both</trim_type>
+        <lower_upper>none</lower_upper>
+        <padding_type>none</padding_type>
+        <pad_char/>
+        <pad_len/>
+        <init_cap>no</init_cap>
+        <mask_xml>none</mask_xml>
+        <digits>none</digits>
+        <remove_special_characters>none</remove_special_characters>
+      </field>
+      <field>
+        <in_stream_name>mobile</in_stream_name>
+        <out_stream_name/>
+        <trim_type>both</trim_type>
+        <lower_upper>none</lower_upper>
+        <padding_type>none</padding_type>
+        <pad_char/>
+        <pad_len/>
+        <init_cap>no</init_cap>
+        <mask_xml>none</mask_xml>
+        <digits>none</digits>
+        <remove_special_characters>none</remove_special_characters>
+      </field>
+      <field>
+        <in_stream_name>email</in_stream_name>
+        <out_stream_name/>
+        <trim_type>both</trim_type>
+        <lower_upper>none</lower_upper>
+        <padding_type>none</padding_type>
+        <pad_char/>
+        <pad_len/>
+        <init_cap>no</init_cap>
+        <mask_xml>none</mask_xml>
+        <digits>none</digits>
+        <remove_special_characters>none</remove_special_characters>
+      </field>
+      <field>
+        <in_stream_name>realname</in_stream_name>
+        <out_stream_name/>
+        <trim_type>both</trim_type>
+        <lower_upper>none</lower_upper>
+        <padding_type>none</padding_type>
+        <pad_char/>
+        <pad_len/>
+        <init_cap>no</init_cap>
+        <mask_xml>none</mask_xml>
+        <digits>none</digits>
+        <remove_special_characters>none</remove_special_characters>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>336</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>EMPTY_PHONE&#x3f;</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<send_true_to>ADD_DDI</send_true_to>
+<send_false_to>IMPORT_USERS</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>phone</leftvalue>
+ <function>IS NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>ORDER_FIELDS</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>      <field>        <name>name</name>
+        <rename/>
+      </field>      <field>        <name>phone</name>
+        <rename/>
+      </field>      <field>        <name>firstname</name>
+        <rename/>
+      </field>      <field>        <name>mobile</name>
+        <rename/>
+      </field>      <field>        <name>email</name>
+        <rename/>
+      </field>      <field>        <name>realname</name>
+        <rename/>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>816</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
