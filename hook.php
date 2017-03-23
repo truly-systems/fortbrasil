@@ -60,7 +60,7 @@ function plugin_fortbrasil_install() {
     $DB->query($query) or die('error glpi_plugin_fortbrasil_templates' . $DB->error());
   }
 
-  CronTask::Register('PluginFortbrasilCron', 'ImportUsers', DAY_TIMESTAMP);
+  CronTask::Register('PluginFortbrasilCron', 'ImportUsers', DAY_TIMESTAMP, array('state' => 0));
 
   return true;
 }
