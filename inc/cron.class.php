@@ -30,7 +30,10 @@ class PluginFortbrasilCron {
     $file = $task->fields['comment'];
     $file = "$plugin_root/files/$file";
 
-    $cmd = "bash $pdi_root/pan.sh -file=$plugin_root/lib/import_users.ktr -param:HOST=$host -param:DB=$db -param:PORT=$port -param:USER=$user -param:PASSWORD=$password -param:FILE=$file";
+    $cmd =  "bash $pdi_root/pan.sh -file=$plugin_root/lib/import_users.ktr -param:HOST=$host " .
+            "-param:DB=$db -param:PORT=$port -param:USER=$user -param:PASSWORD=$password " .
+            "-param:FILE=$file -logfile=$plugin_root/files/cron.log &> /dev/null &";
+
     exec($cmd, $out);
 
     $message = 'Usuários importados com sucesso.';
