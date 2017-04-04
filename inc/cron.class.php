@@ -27,12 +27,15 @@ class PluginFortbrasilCron {
     $db       = $conn->dbdefault;
     $port     = '3306';
 
-    $file = $task->fields['comment'];
-    $file = "$plugin_root/files/$file";
+    $files = explode(';', $task->fields['comment'], 2);
 
-    $cmd =  "bash $pdi_root/pan.sh -file=$plugin_root/lib/import_users.ktr -param:HOST=$host " .
-            "-param:DB=$db -param:PORT=$port -param:USER=$user -param:PASSWORD=$password " .
-            "-param:FILE=$file -logfile=$plugin_root/files/cron.log &> /dev/null &";
+    $base_file  = "$plugin_root/files/" . $files[0];
+    $new_file   = isset($files[1]) ? "$plugin_root/files/" . $files[1] : '';
+
+    $cmd =  "bash $pdi_root/kitchen.sh -file=$plugin_root/lib/etl/job_import_users.kjb " .
+            "-param:HOST=$host -param:DB=$db -param:PORT=$port -param:USER=$user " .
+            "-param:PASSWORD=$password -param:BASE_FILE=$base_file -param:NEW_FILE=$new_file " .
+            ">> $plugin_root/files/cron.log";
 
     exec($cmd, $out);
 

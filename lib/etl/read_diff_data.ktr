@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>IMPORT_USERS</name>
+    <name>READ_DIFF_DATA</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -9,36 +9,6 @@
     <trans_status>0</trans_status>
     <directory>&#x2f;</directory>
     <parameters>
-      <parameter>
-        <name>DB</name>
-        <default_value/>
-        <description/>
-      </parameter>
-      <parameter>
-        <name>FILE</name>
-        <default_value/>
-        <description/>
-      </parameter>
-      <parameter>
-        <name>HOST</name>
-        <default_value/>
-        <description/>
-      </parameter>
-      <parameter>
-        <name>PASSWORD</name>
-        <default_value/>
-        <description/>
-      </parameter>
-      <parameter>
-        <name>PORT</name>
-        <default_value/>
-        <description/>
-      </parameter>
-      <parameter>
-        <name>USER</name>
-        <default_value/>
-        <description/>
-      </parameter>
     </parameters>
     <log>
       <trans-log-table>
@@ -458,111 +428,54 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2017&#x2f;03&#x2f;13 20&#x3a;32&#x3a;19.658</created_date>
+    <created_date>2017&#x2f;04&#x2f;03 21&#x3a;36&#x3a;45.703</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2017&#x2f;03&#x2f;13 20&#x3a;32&#x3a;19.658</modified_date>
+    <modified_date>2017&#x2f;04&#x2f;03 21&#x3a;36&#x3a;45.703</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
-  <connection>
-    <name>GLPI_CONNECTION</name>
-    <server>&#x24;&#x7b;HOST&#x7d;</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>&#x24;&#x7b;DB&#x7d;</database>
-    <port>&#x24;&#x7b;PORT&#x7d;</port>
-    <username>&#x24;&#x7b;USER&#x7d;</username>
-    <password>&#x24;&#x7b;PASSWORD&#x7d;</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;PORT&#x7d;</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
   <order>
     <hop>
-      <from>ADD_DDI</from>
-      <to>FORMAT_PHONE_NUMBER</to>
+      <from>SORT_BASE_FILE</from>
+      <to>GET_DIFF_ROW</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>IMPORT_USERS</from>
-      <to>GET_USER_ID</to>
+      <from>SORT_NEW_FILE</from>
+      <to>GET_DIFF_ROW</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>GET_USER_ID</from>
-      <to>EMPTY_EMAIL&#x3f;</to>
+      <from>READ_BASE_FILE</from>
+      <to>SORT_BASE_FILE</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>EMPTY_EMAIL&#x3f;</from>
-      <to>DELETE_USER_EMAIL</to>
+      <from>READ_NEW_FILE</from>
+      <to>SORT_NEW_FILE</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>EMPTY_EMAIL&#x3f;</from>
-      <to>ADD_IS_DEFAULT</to>
+      <from>GET_DIFF_ROW</from>
+      <to>FILTER_NEW_ROWS</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>ADD_IS_DEFAULT</from>
-      <to>SYNC_EMAIL</to>
+      <from>FILTER_NEW_ROWS</from>
+      <to>IGNORE_ROWS</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>READ_CSV</from>
-      <to>FORMAT_FIELDS</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>FORMAT_FIELDS</from>
-      <to>TRIM_VALUES</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>TRIM_VALUES</from>
-      <to>EMPTY_PHONE&#x3f;</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>FORMAT_PHONE_NUMBER</from>
-      <to>ORDER_FIELDS</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>ORDER_FIELDS</from>
-      <to>IMPORT_USERS</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>EMPTY_PHONE&#x3f;</from>
-      <to>ADD_DDI</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>EMPTY_PHONE&#x3f;</from>
-      <to>IMPORT_USERS</to>
+      <from>FILTER_NEW_ROWS</from>
+      <to>EXPORT_RESULT</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>ADD_DDI</name>
-    <type>Constant</type>
+    <name>EXPORT_RESULT</name>
+    <type>RowsToResult</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -571,20 +484,6 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <fields>
-      <field>
-        <name>DDI</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>55</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
     <cluster_schema/>
     <remotesteps>
       <input>
@@ -593,54 +492,15 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>640</xloc>
-      <yloc>48</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>ADD_IS_DEFAULT</name>
-    <type>Constant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>is_default</name>
-        <type>Integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>1</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>192</xloc>
+      <xloc>272</xloc>
       <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
 
   <step>
-    <name>DELETE_USER_EMAIL</name>
-    <type>Delete</type>
+    <name>FILTER_NEW_ROWS</name>
+    <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -649,18 +509,16 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>GLPI_CONNECTION</connection>
-    <commit>100000</commit>
-    <lookup>
-      <schema/>
-      <table>glpi_useremails</table>
-      <key>
-        <name>user_id</name>
-        <field>users_id</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-    </lookup>
+<send_true_to>EXPORT_RESULT</send_true_to>
+<send_false_to>IGNORE_ROWS</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>flagfield</leftvalue>
+ <function>REGEXP</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>new&#x7c;changed</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
     <cluster_schema/>
     <remotesteps>
       <input>
@@ -669,15 +527,55 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>192</xloc>
+      <xloc>272</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>GET_DIFF_ROW</name>
+    <type>MergeRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <keys>
+      <key>ID_CONTA</key>
+    </keys>
+    <values>
+      <value>CPF</value>
+      <value>NOME</value>
+      <value>TELEFONE</value>
+      <value>EMAIL</value>
+      <value>PRODUTO</value>
+    </values>
+<flag_field>flagfield</flag_field>
+<reference>SORT_BASE_FILE</reference>
+<compare>SORT_NEW_FILE</compare>
+    <compare>
+    </compare>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>272</xloc>
       <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
 
   <step>
-    <name>EMPTY_EMAIL&#x3f;</name>
-    <type>FilterRows</type>
+    <name>IGNORE_ROWS</name>
+    <type>Dummy</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -686,16 +584,6 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-<send_true_to>DELETE_USER_EMAIL</send_true_to>
-<send_false_to>ADD_IS_DEFAULT</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>email</leftvalue>
- <function>IS NULL</function>
- <rightvalue/>
- </condition>
-    </compare>
     <cluster_schema/>
     <remotesteps>
       <input>
@@ -704,317 +592,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>192</xloc>
+      <xloc>80</xloc>
       <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
 
   <step>
-    <name>EMPTY_PHONE&#x3f;</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-<send_true_to>IMPORT_USERS</send_true_to>
-<send_false_to>ADD_DDI</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>mobile</leftvalue>
- <function>IS NULL</function>
- <rightvalue/>
- </condition>
-    </compare>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>480</xloc>
-      <yloc>48</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>FORMAT_FIELDS</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>      <field>        <name>ID_CONTA</name>
-        <rename>name</rename>
-      </field>      <field>        <name>CPF</name>
-        <rename>phone</rename>
-      </field>      <field>        <name>NOME</name>
-        <rename>firstname</rename>
-      </field>      <field>        <name>TELEFONE</name>
-        <rename>mobile</rename>
-      </field>      <field>        <name>EMAIL</name>
-        <rename>email</rename>
-      </field>      <field>        <name>PRODUTO</name>
-        <rename>realname</rename>
-      </field>        <select_unspecified>N</select_unspecified>
-    </fields>    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>192</xloc>
-      <yloc>48</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>FORMAT_PHONE_NUMBER</name>
-    <type>ConcatFields</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <separator/>
-    <enclosure>&#x22;</enclosure>
-    <enclosure_forced>N</enclosure_forced>
-    <enclosure_fix_disabled>N</enclosure_fix_disabled>
-    <header>N</header>
-    <footer>N</footer>
-    <format>DOS</format>
-    <compression>None</compression>
-    <encoding>UTF-8</encoding>
-    <endedLine/>
-    <fileNameInField>N</fileNameInField>
-    <fileNameField/>
-    <create_parent_folder>Y</create_parent_folder>
-    <file>
-      <name>file</name>
-      <is_command>N</is_command>
-      <servlet_output>N</servlet_output>
-      <do_not_open_new_file_init>Y</do_not_open_new_file_init>
-      <extention>txt</extention>
-      <append>N</append>
-      <split>N</split>
-      <haspartno>N</haspartno>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <SpecifyFormat>N</SpecifyFormat>
-      <date_time_format/>
-      <add_to_result_filenames>Y</add_to_result_filenames>
-      <pad>N</pad>
-      <fast_dump>N</fast_dump>
-      <splitevery>0</splitevery>
-    </file>
-    <fields>
-      <field>
-        <name>DDI</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>mobile</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-    </fields>
-    <ConcatFields>
-<targetFieldName>mobile</targetFieldName>
-<targetFieldLength>0</targetFieldLength>
-<removeSelectedFields>Y</removeSelectedFields>
-    </ConcatFields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>816</xloc>
-      <yloc>48</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>GET_USER_ID</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>GLPI_CONNECTION</connection>
-    <cache>Y</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>glpi_users</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>name</name>
-        <field>name</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>id</name>
-        <rename>user_id</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>336</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>IMPORT_USERS</name>
-    <type>InsertUpdate</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>GLPI_CONNECTION</connection>
-    <commit>100000</commit>
-    <update_bypassed>N</update_bypassed>
-    <lookup>
-      <schema/>
-      <table>glpi_users</table>
-      <key>
-        <name>name</name>
-        <field>name</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>name</name>
-        <rename>name</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>phone</name>
-        <rename>phone</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>firstname</name>
-        <rename>firstname</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>realname</name>
-        <rename>realname</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>mobile</name>
-        <rename>mobile</rename>
-        <update>Y</update>
-      </value>
-    </lookup>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>480</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>ORDER_FIELDS</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>      <field>        <name>name</name>
-      </field>      <field>        <name>phone</name>
-      </field>      <field>        <name>firstname</name>
-      </field>      <field>        <name>mobile</name>
-      </field>      <field>        <name>email</name>
-      </field>      <field>        <name>realname</name>
-      </field>        <select_unspecified>N</select_unspecified>
-    </fields>    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>816</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>READ_CSV</name>
+    <name>READ_BASE_FILE</name>
     <type>CsvInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1024,7 +609,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>&#x24;&#x7b;FILE&#x7d;</filename>
+    <filename>&#x24;&#x7b;BASE_FILE&#x7d;</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -1047,7 +632,7 @@
         <group>,</group>
         <length>-1</length>
         <precision>-1</precision>
-        <trim_type>none</trim_type>
+        <trim_type>both</trim_type>
       </field>
       <field>
         <name>CPF</name>
@@ -1058,7 +643,7 @@
         <group>,</group>
         <length>-1</length>
         <precision>-1</precision>
-        <trim_type>none</trim_type>
+        <trim_type>both</trim_type>
       </field>
       <field>
         <name>NOME</name>
@@ -1069,7 +654,7 @@
         <group>,</group>
         <length>-1</length>
         <precision>-1</precision>
-        <trim_type>none</trim_type>
+        <trim_type>both</trim_type>
       </field>
       <field>
         <name>TELEFONE</name>
@@ -1091,7 +676,7 @@
         <group>,</group>
         <length>-1</length>
         <precision>-1</precision>
-        <trim_type>none</trim_type>
+        <trim_type>both</trim_type>
       </field>
       <field>
         <name>PRODUTO</name>
@@ -1102,7 +687,7 @@
         <group>,</group>
         <length>-1</length>
         <precision>-1</precision>
-        <trim_type>none</trim_type>
+        <trim_type>both</trim_type>
       </field>
     </fields>
     <cluster_schema/>
@@ -1113,15 +698,15 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>48</xloc>
-      <yloc>48</yloc>
+      <xloc>80</xloc>
+      <yloc>37</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
 
   <step>
-    <name>SYNC_EMAIL</name>
-    <type>InsertUpdate</type>
+    <name>READ_NEW_FILE</name>
+    <type>CsvInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1130,143 +715,85 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>GLPI_CONNECTION</connection>
-    <commit>100000</commit>
-    <update_bypassed>N</update_bypassed>
-    <lookup>
-      <schema/>
-      <table>glpi_useremails</table>
-      <key>
-        <name>user_id</name>
-        <field>users_id</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>is_default</name>
-        <field>is_default</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>users_id</name>
-        <rename>user_id</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>is_default</name>
-        <rename>is_default</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>email</name>
-        <rename>email</rename>
-        <update>Y</update>
-      </value>
-    </lookup>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>336</xloc>
-      <yloc>400</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>TRIM_VALUES</name>
-    <type>StringOperations</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
+    <filename>&#x24;&#x7b;NEW_FILE&#x7d;</filename>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>N</include_filename>
+    <separator>&#x3b;</separator>
+    <enclosure>&#x22;</enclosure>
+    <header>Y</header>
+    <buffer_size>5000000</buffer_size>
+    <lazy_conversion>Y</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>Y</newline_possible>
+    <encoding>ISO-8859-1</encoding>
     <fields>
       <field>
-        <in_stream_name>name</in_stream_name>
-        <out_stream_name/>
+        <name>ID_CONTA</name>
+        <type>String</type>
+        <format/>
+        <currency>&#x24;</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>-1</length>
+        <precision>-1</precision>
         <trim_type>both</trim_type>
-        <lower_upper>none</lower_upper>
-        <padding_type>none</padding_type>
-        <pad_char/>
-        <pad_len/>
-        <init_cap>no</init_cap>
-        <mask_xml>none</mask_xml>
-        <digits>none</digits>
-        <remove_special_characters>none</remove_special_characters>
       </field>
       <field>
-        <in_stream_name>phone</in_stream_name>
-        <out_stream_name/>
+        <name>CPF</name>
+        <type>String</type>
+        <format/>
+        <currency>&#x24;</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>-1</length>
+        <precision>-1</precision>
         <trim_type>both</trim_type>
-        <lower_upper>none</lower_upper>
-        <padding_type>none</padding_type>
-        <pad_char/>
-        <pad_len/>
-        <init_cap>no</init_cap>
-        <mask_xml>none</mask_xml>
-        <digits>none</digits>
-        <remove_special_characters>none</remove_special_characters>
       </field>
       <field>
-        <in_stream_name>firstname</in_stream_name>
-        <out_stream_name/>
+        <name>NOME</name>
+        <type>String</type>
+        <format/>
+        <currency>&#x24;</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>-1</length>
+        <precision>-1</precision>
         <trim_type>both</trim_type>
-        <lower_upper>none</lower_upper>
-        <padding_type>none</padding_type>
-        <pad_char/>
-        <pad_len/>
-        <init_cap>no</init_cap>
-        <mask_xml>none</mask_xml>
-        <digits>none</digits>
-        <remove_special_characters>none</remove_special_characters>
       </field>
       <field>
-        <in_stream_name>mobile</in_stream_name>
-        <out_stream_name/>
+        <name>TELEFONE</name>
+        <type>String</type>
+        <format/>
+        <currency>&#x24;</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>-1</length>
+        <precision>-1</precision>
         <trim_type>both</trim_type>
-        <lower_upper>none</lower_upper>
-        <padding_type>none</padding_type>
-        <pad_char/>
-        <pad_len/>
-        <init_cap>no</init_cap>
-        <mask_xml>none</mask_xml>
-        <digits>none</digits>
-        <remove_special_characters>none</remove_special_characters>
       </field>
       <field>
-        <in_stream_name>email</in_stream_name>
-        <out_stream_name/>
+        <name>EMAIL</name>
+        <type>String</type>
+        <format/>
+        <currency>&#x24;</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>-1</length>
+        <precision>-1</precision>
         <trim_type>both</trim_type>
-        <lower_upper>none</lower_upper>
-        <padding_type>none</padding_type>
-        <pad_char/>
-        <pad_len/>
-        <init_cap>no</init_cap>
-        <mask_xml>none</mask_xml>
-        <digits>none</digits>
-        <remove_special_characters>none</remove_special_characters>
       </field>
       <field>
-        <in_stream_name>realname</in_stream_name>
-        <out_stream_name/>
+        <name>PRODUTO</name>
+        <type>String</type>
+        <format/>
+        <currency>&#x24;</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>-1</length>
+        <precision>-1</precision>
         <trim_type>both</trim_type>
-        <lower_upper>none</lower_upper>
-        <padding_type>none</padding_type>
-        <pad_char/>
-        <pad_len/>
-        <init_cap>no</init_cap>
-        <mask_xml>none</mask_xml>
-        <digits>none</digits>
-        <remove_special_characters>none</remove_special_characters>
       </field>
     </fields>
     <cluster_schema/>
@@ -1277,8 +804,92 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>336</xloc>
-      <yloc>48</yloc>
+      <xloc>464</xloc>
+      <yloc>37</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>SORT_BASE_FILE</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
+      <prefix>out</prefix>
+      <sort_size>5000000</sort_size>
+      <free_memory/>
+      <compress>N</compress>
+      <compress_variable/>
+      <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>ID_CONTA</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>80</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>SORT_NEW_FILE</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
+      <prefix>out</prefix>
+      <sort_size>5000000</sort_size>
+      <free_memory/>
+      <compress>N</compress>
+      <compress_variable/>
+      <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>ID_CONTA</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>464</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
