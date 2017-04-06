@@ -89,14 +89,14 @@ class PluginFortbrasilTicket extends CommonITILObject {
 
       // ID Conta
       echo "<tr class='tab_bg_1'>";
-      echo "<th width='13%'>ID Conta</th>";
+      echo "<th width='13%'>ID Conta / CNPJ</th>";
       echo "<td width='29%'><input type='text' id='id_conta_field' name='id_conta_field' class='number' value='$id_conta' onchange='fill_fields()'></td>";
       echo "<td colspan='2'></td>";
       echo "</tr>";
 
       // Nome
       echo "<tr class='tab_bg_1'>";
-      echo "<th width='3%'>Nome</th>";
+      echo "<th width='3%'>Nome / Razão Social</th>";
       echo "<td width='29%'><input type='text' id='nome_field' name='nome_field' value='$nome'></td>";
       echo "<td colspan='2'></td>";
       echo "</tr>";
@@ -110,7 +110,7 @@ class PluginFortbrasilTicket extends CommonITILObject {
 
       // Produto
       echo "<tr class='tab_bg_1'>";
-      echo "<th width='3%'>Produto</th>";
+      echo "<th width='3%'>Produto / Responsável</th>";
       echo "<td width='29%'><input type='text' id='produto_field' name='produto_field' value='$produto'></td>";
       echo "<td colspan='2'></td>";
       echo "</tr>";
@@ -189,7 +189,7 @@ class PluginFortbrasilTicket extends CommonITILObject {
     $pattern = array('/^(\\\\n|\\\\r)+/', '/(\\\\n|\\\\r)+$/');
     $content = preg_replace($pattern, '', $content);
 
-    $content = "ID Conta:\t$id_conta\nCPF:\t$cpf\nNome:\t$nome\n\n$content";
+    $content = "ID Conta:\t$id_conta\;\nCPF:\t$cpf\;\nNome:\t$nome\;\n\n$content";
 
     return $content;
   }

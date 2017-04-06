@@ -1,0 +1,16 @@
+ALTERAÇÕES PLUGIN
+
+1) Incremento de (;) após ID Conta, CPF e nome na descrição do chamado.
+
+> ../inc/ticket.class.php
+> linha 192: 
+> old: $content = "ID Conta:\t$id_conta\nCPF:\t$cpf\nNome:\t$nome\n\n$content";
+> new: $content = "ID Conta:\t$id_conta\;\nCPF:\t$cpf\;\nNome:\t$nome\;\n\n$content";
+
+
+2) Incremento dos campos lojista.
+
+> ../inc/ticket.class.php
+> linha 92: echo "<th width='13%'>ID Conta / CNPJ</th>";
+> linha 99: echo "<th width='3%'>Nome / Razão Social</th>";
+> linha 113: echo "<th width='3%'>Produto / Responsável</th>";
