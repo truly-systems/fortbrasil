@@ -24,7 +24,7 @@ export LIBOVERLAY_SCROLLBAR=0
 # Bug in: https://bugs.launchpad.net/ubuntu/+source/unity-gtk-module/+bug/1208019
 export UBUNTU_MENUPROXY=0
 
-# Supposed spoon.sh and set-env.sh files both are located in data-integration folder  
+# Supposed spoon.sh and set-env.sh files both are located in data-integration folder
 # **************************************************
 # ** Set INITIALDIR, BASEDIR AND CURRENTDIR       **
 # **************************************************
@@ -51,7 +51,7 @@ else
 	cd "$BASEDIR"
 fi
 
-case `uname -s` in 
+case `uname -s` in
 	AIX)
 	ARCH=`uname -m`
 		case $ARCH in
@@ -64,13 +64,13 @@ case `uname -s` in
 				LIBPATH=$CURRENTDIR/../libswt/aix64/
 				;;
 
-			*)	
+			*)
 				echo "I'm sorry, this AIX platform [$ARCH] is not yet supported!"
 				exit
 				;;
 		esac
 		;;
-	SunOS) 
+	SunOS)
 	ARCH=`uname -m`
 		case $ARCH in
 
@@ -78,7 +78,7 @@ case `uname -s` in
 				LIBPATH=$CURRENTDIR/../libswt/solaris-x86/
 				;;
 
-			*)	
+			*)
 				LIBPATH=$CURRENTDIR/../libswt/solaris/
 				;;
 		esac
@@ -103,7 +103,7 @@ case `uname -s` in
 			LIBPATH=$CURRENTDIR/../libswt/osx/
 			;;
 
-		*)	
+		*)
 			echo "I'm sorry, this Mac platform [$ARCH] is not yet supported!"
 			echo "Please try starting using 'Data Integration 32-bit' or"
 			echo "'Data Integration 64-bit' as appropriate."
@@ -147,7 +147,7 @@ case `uname -s` in
 				LIBPATH=$CURRENTDIR/../libswt/linux/ppc64/
 				;;
 
-			*)	
+			*)
 				echo "I'm sorry, this Linux platform [$ARCH] is not yet supported!"
 				exit
 				;;
@@ -175,14 +175,14 @@ case `uname -s` in
 				exit
 				;;
 
-			*)	
+			*)
 				echo "I'm sorry, this FreeBSD platform [$ARCH] is not yet supported!"
 				exit
 				;;
 		esac
 		;;
 
-	HP-UX) 
+	HP-UX)
 		LIBPATH=$CURRENTDIR/../libswt/hpux/
 		;;
 	CYGWIN*)
@@ -190,11 +190,11 @@ case `uname -s` in
 		exit
 		;;
 
-	*) 
+	*)
 		echo Spoon is not supported on this hosttype : `uname -s`
 		exit
 		;;
-esac 
+esac
 
 export LIBPATH
 
@@ -208,7 +208,7 @@ if [ -z "$PENTAHO_DI_JAVA_OPTIONS" ]; then
     PENTAHO_DI_JAVA_OPTIONS="-Xms1024m -Xmx2048m -XX:MaxPermSize=256m"
 fi
 
-OPT="$OPT $PENTAHO_DI_JAVA_OPTIONS -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2 -Djava.library.path=$LIBPATH -DKETTLE_HOME=$KETTLE_HOME -DKETTLE_REPOSITORY=$KETTLE_REPOSITORY -DKETTLE_USER=$KETTLE_USER -DKETTLE_PASSWORD=$KETTLE_PASSWORD -DKETTLE_PLUGIN_PACKAGES=$KETTLE_PLUGIN_PACKAGES -DKETTLE_LOG_SIZE_LIMIT=$KETTLE_LOG_SIZE_LIMIT -DKETTLE_JNDI_ROOT=$KETTLE_JNDI_ROOT"
+OPT="$OPT $PENTAHO_DI_JAVA_OPTIONS -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2 -Djava.library.path=$LIBPATH -DKETTLE_HOME=$KETTLE_HOME -DKETTLE_REPOSITORY=$KETTLE_REPOSITORY -DKETTLE_USER=$KETTLE_USER -DKETTLE_PASSWORD=$KETTLE_PASSWORD -DKETTLE_PLUGIN_PACKAGES=$KETTLE_PLUGIN_PACKAGES -DKETTLE_LOG_SIZE_LIMIT=$KETTLE_LOG_SIZE_LIMIT -DKETTLE_JNDI_ROOT=$KETTLE_JNDI_ROOT -DPENTAHO_METASTORE_FOLDER=/tmp/.pentaho"
 
 # optional line for attaching a debugger
 # OPT="$OPT -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
