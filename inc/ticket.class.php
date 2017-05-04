@@ -33,10 +33,18 @@ class PluginFortbrasilTicket extends CommonITILObject {
         $item->input['_users_id_observer_notif']['alternative_email'] = array($email);
       } else if($operation == 'update') {
         $ticket_id = $item->fields['id'];
+
         $ticket_user = new Ticket_User();
         $ticket_user->getFromDBByQuery("WHERE `tickets_id` = '$ticket_id' AND `type` = '3'");
         $ticket_user->fields['alternative_email'] = $email;
-        $ticket_user->updateInDB(array('alternative_email'));
+
+        if(!isset($ticket_user->fields['id'])) {
+          $ticket_user->fields['tickets_id'] = $ticket_id;
+          $ticket_user->fields['type'] = 3;
+          $ticket_user->addToDB();
+        } else {
+          $ticket_user->updateInDB(array('alternative_email'));
+        }
       }
     }
   }
