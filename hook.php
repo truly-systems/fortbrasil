@@ -34,6 +34,7 @@ along with FortBrasil. If not, see <http://www.gnu.org/licenses/>.
 function plugin_fortbrasil_install() {
   global $DB;
 
+  // create tickets table
   if(!TableExists('glpi_plugin_fortbrasil_tickets')) {
     $query = "CREATE TABLE `glpi_plugin_fortbrasil_tickets` (
       `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -50,6 +51,7 @@ function plugin_fortbrasil_install() {
     $DB->query($query) or die('error glpi_plugin_fortbrasil_tickets ' . $DB->error());
   }
 
+  // create templates table
   if(!TableExists('glpi_plugin_fortbrasil_templates')) {
     $query = "CREATE TABLE `glpi_plugin_fortbrasil_templates` (
       `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -58,6 +60,21 @@ function plugin_fortbrasil_install() {
     ) ENGINE=MyISAM CHARSET=utf8 COLLATE=utf8_unicode_ci";
 
     $DB->query($query) or die('error glpi_plugin_fortbrasil_templates' . $DB->error());
+  }
+
+  // create users table
+  if(!TableExists('glpi_plugin_fortbrasil_users')) {
+    $query = "CREATE TABLE `glpi_plugin_fortbrasil_users` (
+      `id` INT(11),
+      `nome` VARCHAR(45),
+      `cpf` VARCHAR(15),
+      `produto` VARCHAR(255),
+      `telefone` VARCHAR(15),
+      `email` VARCHAR(255),
+      PRIMARY KEY(`id`)
+    ) ENGINE=MyISAM CHARSET=utf8 COLLATE=utf8_unicode_ci";
+
+    $DB->query($query) or die('error glpi_plugin_fortbrasil_users' . $DB->error());
   }
 
   CronTask::Register('PluginFortbrasilCron', 'ImportUsers', DAY_TIMESTAMP, array('state' => 0));
@@ -73,14 +90,22 @@ function plugin_fortbrasil_install() {
 function plugin_fortbrasil_uninstall() {
   global $DB;
 
+  // drop tickets table
   if(TableExists('glpi_plugin_fortbrasil_tickets')) {
     $query = "DROP TABLE `glpi_plugin_fortbrasil_tickets`";
     $DB->query($query) or die('error deleting glpi_plugin_fortbrasil_tickets');
   }
-  
+
+  // drop templates table
   if(TableExists('glpi_plugin_fortbrasil_templates')) {
     $query = "DROP TABLE `glpi_plugin_fortbrasil_templates`";
     $DB->query($query) or die('error deleting glpi_plugin_fortbrasil_templates');
+  }
+
+  // drop users table
+  if(TableExists('glpi_plugin_fortbrasil_users')) {
+    $query = "DROP TABLE `glpi_plugin_fortbrasil_users`";
+    $DB->query($query) or die('error deleting glpi_plugin_fortbrasil_users');
   }
 
   return true;

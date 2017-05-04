@@ -8,7 +8,7 @@ class PluginFortbrasilTicket extends CommonITILObject {
     $type         = $item->fields['type'];
 
     $enabled      = PluginFortbrasilTemplate::isEnabled($template_id, $category_id, $type);
-    
+
     if($enabled) {
       // Get input values
       $id_conta   = $item->input['id_conta_field'];
@@ -47,7 +47,7 @@ class PluginFortbrasilTicket extends CommonITILObject {
     $type         = $item->fields['type'];
 
     $enabled      = PluginFortbrasilTemplate::isEnabled($template_id, $category_id, $type);
-    
+
     if($enabled) {
       // Get input values
       $ticket_id  = $item->fields['id'];
@@ -134,25 +134,6 @@ class PluginFortbrasilTicket extends CommonITILObject {
     }
   }
 
-  static function findByIDConta($id_conta) {
-    $user = new User();
-    $user->getFromDBbyName($id_conta);
-
-    $fields = array();
-
-    if(isset($user->fields['name'])) {
-      $fields = array(
-        'nome'      => $user->fields['firstname'],
-        'cpf'       => $user->fields['phone'],
-        'produto'   => $user->fields['realname'],
-        'telefone'  => substr($user->fields['mobile'], 2),
-        'email'     => $user->getDefaultEmail()
-      );
-    }
-
-    return $fields;
-  }
-
   // Obtém o Ticket de acordo com o ID passado na URL
   private static function getTicketID() {
     $ticket = null;
@@ -167,7 +148,7 @@ class PluginFortbrasilTicket extends CommonITILObject {
 
     return $ticket;
   }
-  
+
   private static function getTemplateID() {
     $active_entity = $_SESSION['glpiactive_entity'];
     $entity        = new Entity();

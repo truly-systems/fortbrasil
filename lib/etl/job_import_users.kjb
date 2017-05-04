@@ -339,8 +339,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>288</xloc>
-      <yloc>32</yloc>
+      <xloc>64</xloc>
+      <yloc>48</yloc>
     </entry>
     <entry>
       <name>NEW_FILE_PRESENT&#x3f;</name>
@@ -361,8 +361,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>288</xloc>
-      <yloc>144</yloc>
+      <xloc>272</xloc>
+      <yloc>48</yloc>
     </entry>
     <entry>
       <name>READ_ALL_DATA</name>
@@ -396,8 +396,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>80</xloc>
-      <yloc>288</yloc>
+      <xloc>96</xloc>
+      <yloc>144</yloc>
     </entry>
     <entry>
       <name>SYNC_USERS</name>
@@ -431,8 +431,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>288</xloc>
-      <yloc>288</yloc>
+      <xloc>272</xloc>
+      <yloc>256</yloc>
     </entry>
     <entry>
       <name>READ_DIFF_DATA</name>
@@ -466,8 +466,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>480</xloc>
-      <yloc>288</yloc>
+      <xloc>464</xloc>
+      <yloc>144</yloc>
     </entry>
     <entry>
       <name>SUCCESS</name>
@@ -476,8 +476,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>288</xloc>
-      <yloc>448</yloc>
+      <xloc>464</xloc>
+      <yloc>256</yloc>
     </entry>
   </entries>
   <hops>
