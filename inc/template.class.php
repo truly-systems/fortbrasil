@@ -1,16 +1,16 @@
 <?php
 
 class PluginFortbrasilTemplate extends CommonITILObject {
-  
+
   function getTabNameForItem(CommonGLPI $item, $withtemplate=0) {
     return __('FortBrasil - Campos', 'fortbrasil');
   }
-  
+
   static function displayTabContentForItem(CommonGLPI $item, $tabnum=1, $withtemplate=0) {
     global $CFG_GLPI;
 
     $action = $CFG_GLPI['root_doc'] . '/plugins/fortbrasil/front/template.form.php';
-    
+
     $template_id  = $item->fields['id'];
     $enabled      = self::isEnabled($template_id);
 
@@ -32,7 +32,7 @@ class PluginFortbrasilTemplate extends CommonITILObject {
     echo "</table></div>";
     Html::closeForm();
   }
-  
+
   static function save($template_id, $enable) {
     if($enable) {
       self::enable($template_id);
@@ -44,29 +44,35 @@ class PluginFortbrasilTemplate extends CommonITILObject {
   static function isEnabled($template_id, $category_id=NULL, $type=NULL) {
     $category_enabled = self::isCategoryEnabled($category_id, $type);
     $template_enabled = self::isTemplateEnabled($template_id);
-    
+
     return $category_enabled || $template_enabled;
   }
 
   private static function isCategoryEnabled($category_id, $type) {
     global $DB;
 
-    if($type == '1') { // incident
-      $column = 'tickettemplates_id_incident';
-    } else if($type == '2') { // request
-      $column = 'tickettemplates_id_demand';
+    $enabled = false;
+
+    if(isset($type)) {
+      if($type == '1') { // incident
+        $column = 'tickettemplates_id_incident';
+      } else if($type == '2') { // request
+        $column = 'tickettemplates_id_demand';
+      }
+
+      $query = "SELECT IF(COUNT(*) > 0, TRUE, FALSE) AS `enabled`
+                FROM `glpi_plugin_fortbrasil_templates`
+                WHERE `template_id` IN(
+                    SELECT `$column` AS `template_id`
+                    FROM `glpi_itilcategories`
+                    WHERE `glpi_itilcategories`.`id` = $category_id
+                )";
+
+      $result   = $DB->query($query);
+      $enabled  = $DB->result($result, 0, 'enabled');
     }
 
-    $query = "SELECT IF(COUNT(*) > 0, TRUE, FALSE) AS `enabled`
-              FROM `glpi_plugin_fortbrasil_templates`
-              WHERE `template_id` IN(
-                  SELECT `$column` AS `template_id`
-                  FROM `glpi_itilcategories`
-                  WHERE `glpi_itilcategories`.`id` = $category_id
-              )";
-
-    $result = $DB->query($query);
-    return $DB->result($result, 0, 'enabled');
+    return $enabled;
   }
 
   private static function isTemplateEnabled($template_id) {
