@@ -40,7 +40,7 @@ function plugin_fortbrasil_install() {
       `id` INT(11) NOT NULL AUTO_INCREMENT,
       `ticket_id` INT(11) NOT NULL,
       `id_conta` BIGINT(20),
-      `nome` VARCHAR(45),
+      `nome` VARCHAR(255),
       `cpf` VARCHAR(15),
       `produto` VARCHAR(255),
       `telefone` VARCHAR(15),
@@ -66,7 +66,7 @@ function plugin_fortbrasil_install() {
   if(!TableExists('glpi_plugin_fortbrasil_users')) {
     $query = "CREATE TABLE `glpi_plugin_fortbrasil_users` (
       `id` INT(11),
-      `nome` VARCHAR(45),
+      `nome` VARCHAR(255),
       `cpf` VARCHAR(15),
       `produto` VARCHAR(255),
       `telefone` VARCHAR(15),
