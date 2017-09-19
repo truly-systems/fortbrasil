@@ -32,9 +32,9 @@ $(window).load(function() {
 
   function inject_custom_fields(category_id, type) {
     $('#mainformtable').after("<div id='fortbrasil-container'></div>");
-    
+
     var url = '../plugins/fortbrasil/front/ticket.form.php';
-    
+
     $.ajax({
       url: url,
       data: { category_id: category_id, type: type },
@@ -64,7 +64,7 @@ function fill_fields() {
       var email     = (data['email']) ? data['email'] : '';
 
       $('#nome_field').val(nome);
-      $('#cpf_field').val(cpf);
+      $('#cpf_field').val(cpf).trigger('input');
       $('#produto_field').val(produto);
       $('#telefone_field').val(telefone);
       $('#email_field').val(email);
