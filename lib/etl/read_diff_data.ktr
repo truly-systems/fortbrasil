@@ -9,422 +9,61 @@
     <trans_status>0</trans_status>
     <directory>&#x2f;</directory>
     <parameters>
-      <parameter>
-        <name>DB</name>
-        <default_value/>
-        <description/>
-      </parameter>
-      <parameter>
-        <name>HOST</name>
-        <default_value/>
-        <description/>
-      </parameter>
-      <parameter>
-        <name>PASSWORD</name>
-        <default_value/>
-        <description/>
-      </parameter>
-      <parameter>
-        <name>PORT</name>
-        <default_value/>
-        <description/>
-      </parameter>
-      <parameter>
-        <name>USER</name>
-        <default_value/>
-        <description/>
-      </parameter>
+        <parameter>
+            <name>DB</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>HOST</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>PASSWORD</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>PORT</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>USER</name>
+            <default_value/>
+            <description/>
+        </parameter>
     </parameters>
     <log>
-      <trans-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <size_limit_lines/>
-        <interval/>
-        <timeout_days/>
-        <field>
-          <id>ID_BATCH</id>
-          <enabled>Y</enabled>
-          <name>ID_BATCH</name>
-        </field>
-        <field>
-          <id>CHANNEL_ID</id>
-          <enabled>Y</enabled>
-          <name>CHANNEL_ID</name>
-        </field>
-        <field>
-          <id>TRANSNAME</id>
-          <enabled>Y</enabled>
-          <name>TRANSNAME</name>
-        </field>
-        <field>
-          <id>STATUS</id>
-          <enabled>Y</enabled>
-          <name>STATUS</name>
-        </field>
-        <field>
-          <id>LINES_READ</id>
-          <enabled>Y</enabled>
-          <name>LINES_READ</name>
-          <subject/>
-        </field>
-        <field>
-          <id>LINES_WRITTEN</id>
-          <enabled>Y</enabled>
-          <name>LINES_WRITTEN</name>
-          <subject/>
-        </field>
-        <field>
-          <id>LINES_UPDATED</id>
-          <enabled>Y</enabled>
-          <name>LINES_UPDATED</name>
-          <subject/>
-        </field>
-        <field>
-          <id>LINES_INPUT</id>
-          <enabled>Y</enabled>
-          <name>LINES_INPUT</name>
-          <subject/>
-        </field>
-        <field>
-          <id>LINES_OUTPUT</id>
-          <enabled>Y</enabled>
-          <name>LINES_OUTPUT</name>
-          <subject/>
-        </field>
-        <field>
-          <id>LINES_REJECTED</id>
-          <enabled>Y</enabled>
-          <name>LINES_REJECTED</name>
-          <subject/>
-        </field>
-        <field>
-          <id>ERRORS</id>
-          <enabled>Y</enabled>
-          <name>ERRORS</name>
-        </field>
-        <field>
-          <id>STARTDATE</id>
-          <enabled>Y</enabled>
-          <name>STARTDATE</name>
-        </field>
-        <field>
-          <id>ENDDATE</id>
-          <enabled>Y</enabled>
-          <name>ENDDATE</name>
-        </field>
-        <field>
-          <id>LOGDATE</id>
-          <enabled>Y</enabled>
-          <name>LOGDATE</name>
-        </field>
-        <field>
-          <id>DEPDATE</id>
-          <enabled>Y</enabled>
-          <name>DEPDATE</name>
-        </field>
-        <field>
-          <id>REPLAYDATE</id>
-          <enabled>Y</enabled>
-          <name>REPLAYDATE</name>
-        </field>
-        <field>
-          <id>LOG_FIELD</id>
-          <enabled>Y</enabled>
-          <name>LOG_FIELD</name>
-        </field>
-        <field>
-          <id>EXECUTING_SERVER</id>
-          <enabled>N</enabled>
-          <name>EXECUTING_SERVER</name>
-        </field>
-        <field>
-          <id>EXECUTING_USER</id>
-          <enabled>N</enabled>
-          <name>EXECUTING_USER</name>
-        </field>
-        <field>
-          <id>CLIENT</id>
-          <enabled>N</enabled>
-          <name>CLIENT</name>
-        </field>
-      </trans-log-table>
-      <perf-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <interval/>
-        <timeout_days/>
-        <field>
-          <id>ID_BATCH</id>
-          <enabled>Y</enabled>
-          <name>ID_BATCH</name>
-        </field>
-        <field>
-          <id>SEQ_NR</id>
-          <enabled>Y</enabled>
-          <name>SEQ_NR</name>
-        </field>
-        <field>
-          <id>LOGDATE</id>
-          <enabled>Y</enabled>
-          <name>LOGDATE</name>
-        </field>
-        <field>
-          <id>TRANSNAME</id>
-          <enabled>Y</enabled>
-          <name>TRANSNAME</name>
-        </field>
-        <field>
-          <id>STEPNAME</id>
-          <enabled>Y</enabled>
-          <name>STEPNAME</name>
-        </field>
-        <field>
-          <id>STEP_COPY</id>
-          <enabled>Y</enabled>
-          <name>STEP_COPY</name>
-        </field>
-        <field>
-          <id>LINES_READ</id>
-          <enabled>Y</enabled>
-          <name>LINES_READ</name>
-        </field>
-        <field>
-          <id>LINES_WRITTEN</id>
-          <enabled>Y</enabled>
-          <name>LINES_WRITTEN</name>
-        </field>
-        <field>
-          <id>LINES_UPDATED</id>
-          <enabled>Y</enabled>
-          <name>LINES_UPDATED</name>
-        </field>
-        <field>
-          <id>LINES_INPUT</id>
-          <enabled>Y</enabled>
-          <name>LINES_INPUT</name>
-        </field>
-        <field>
-          <id>LINES_OUTPUT</id>
-          <enabled>Y</enabled>
-          <name>LINES_OUTPUT</name>
-        </field>
-        <field>
-          <id>LINES_REJECTED</id>
-          <enabled>Y</enabled>
-          <name>LINES_REJECTED</name>
-        </field>
-        <field>
-          <id>ERRORS</id>
-          <enabled>Y</enabled>
-          <name>ERRORS</name>
-        </field>
-        <field>
-          <id>INPUT_BUFFER_ROWS</id>
-          <enabled>Y</enabled>
-          <name>INPUT_BUFFER_ROWS</name>
-        </field>
-        <field>
-          <id>OUTPUT_BUFFER_ROWS</id>
-          <enabled>Y</enabled>
-          <name>OUTPUT_BUFFER_ROWS</name>
-        </field>
-      </perf-log-table>
-      <channel-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <timeout_days/>
-        <field>
-          <id>ID_BATCH</id>
-          <enabled>Y</enabled>
-          <name>ID_BATCH</name>
-        </field>
-        <field>
-          <id>CHANNEL_ID</id>
-          <enabled>Y</enabled>
-          <name>CHANNEL_ID</name>
-        </field>
-        <field>
-          <id>LOG_DATE</id>
-          <enabled>Y</enabled>
-          <name>LOG_DATE</name>
-        </field>
-        <field>
-          <id>LOGGING_OBJECT_TYPE</id>
-          <enabled>Y</enabled>
-          <name>LOGGING_OBJECT_TYPE</name>
-        </field>
-        <field>
-          <id>OBJECT_NAME</id>
-          <enabled>Y</enabled>
-          <name>OBJECT_NAME</name>
-        </field>
-        <field>
-          <id>OBJECT_COPY</id>
-          <enabled>Y</enabled>
-          <name>OBJECT_COPY</name>
-        </field>
-        <field>
-          <id>REPOSITORY_DIRECTORY</id>
-          <enabled>Y</enabled>
-          <name>REPOSITORY_DIRECTORY</name>
-        </field>
-        <field>
-          <id>FILENAME</id>
-          <enabled>Y</enabled>
-          <name>FILENAME</name>
-        </field>
-        <field>
-          <id>OBJECT_ID</id>
-          <enabled>Y</enabled>
-          <name>OBJECT_ID</name>
-        </field>
-        <field>
-          <id>OBJECT_REVISION</id>
-          <enabled>Y</enabled>
-          <name>OBJECT_REVISION</name>
-        </field>
-        <field>
-          <id>PARENT_CHANNEL_ID</id>
-          <enabled>Y</enabled>
-          <name>PARENT_CHANNEL_ID</name>
-        </field>
-        <field>
-          <id>ROOT_CHANNEL_ID</id>
-          <enabled>Y</enabled>
-          <name>ROOT_CHANNEL_ID</name>
-        </field>
-      </channel-log-table>
-      <step-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <timeout_days/>
-        <field>
-          <id>ID_BATCH</id>
-          <enabled>Y</enabled>
-          <name>ID_BATCH</name>
-        </field>
-        <field>
-          <id>CHANNEL_ID</id>
-          <enabled>Y</enabled>
-          <name>CHANNEL_ID</name>
-        </field>
-        <field>
-          <id>LOG_DATE</id>
-          <enabled>Y</enabled>
-          <name>LOG_DATE</name>
-        </field>
-        <field>
-          <id>TRANSNAME</id>
-          <enabled>Y</enabled>
-          <name>TRANSNAME</name>
-        </field>
-        <field>
-          <id>STEPNAME</id>
-          <enabled>Y</enabled>
-          <name>STEPNAME</name>
-        </field>
-        <field>
-          <id>STEP_COPY</id>
-          <enabled>Y</enabled>
-          <name>STEP_COPY</name>
-        </field>
-        <field>
-          <id>LINES_READ</id>
-          <enabled>Y</enabled>
-          <name>LINES_READ</name>
-        </field>
-        <field>
-          <id>LINES_WRITTEN</id>
-          <enabled>Y</enabled>
-          <name>LINES_WRITTEN</name>
-        </field>
-        <field>
-          <id>LINES_UPDATED</id>
-          <enabled>Y</enabled>
-          <name>LINES_UPDATED</name>
-        </field>
-        <field>
-          <id>LINES_INPUT</id>
-          <enabled>Y</enabled>
-          <name>LINES_INPUT</name>
-        </field>
-        <field>
-          <id>LINES_OUTPUT</id>
-          <enabled>Y</enabled>
-          <name>LINES_OUTPUT</name>
-        </field>
-        <field>
-          <id>LINES_REJECTED</id>
-          <enabled>Y</enabled>
-          <name>LINES_REJECTED</name>
-        </field>
-        <field>
-          <id>ERRORS</id>
-          <enabled>Y</enabled>
-          <name>ERRORS</name>
-        </field>
-        <field>
-          <id>LOG_FIELD</id>
-          <enabled>N</enabled>
-          <name>LOG_FIELD</name>
-        </field>
-      </step-log-table>
-      <metrics-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <timeout_days/>
-        <field>
-          <id>ID_BATCH</id>
-          <enabled>Y</enabled>
-          <name>ID_BATCH</name>
-        </field>
-        <field>
-          <id>CHANNEL_ID</id>
-          <enabled>Y</enabled>
-          <name>CHANNEL_ID</name>
-        </field>
-        <field>
-          <id>LOG_DATE</id>
-          <enabled>Y</enabled>
-          <name>LOG_DATE</name>
-        </field>
-        <field>
-          <id>METRICS_DATE</id>
-          <enabled>Y</enabled>
-          <name>METRICS_DATE</name>
-        </field>
-        <field>
-          <id>METRICS_CODE</id>
-          <enabled>Y</enabled>
-          <name>METRICS_CODE</name>
-        </field>
-        <field>
-          <id>METRICS_DESCRIPTION</id>
-          <enabled>Y</enabled>
-          <name>METRICS_DESCRIPTION</name>
-        </field>
-        <field>
-          <id>METRICS_SUBJECT</id>
-          <enabled>Y</enabled>
-          <name>METRICS_SUBJECT</name>
-        </field>
-        <field>
-          <id>METRICS_TYPE</id>
-          <enabled>Y</enabled>
-          <name>METRICS_TYPE</name>
-        </field>
-        <field>
-          <id>METRICS_VALUE</id>
-          <enabled>Y</enabled>
-          <name>METRICS_VALUE</name>
-        </field>
-      </metrics-log-table>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field><field><id>EXECUTING_SERVER</id><enabled>N</enabled><name>EXECUTING_SERVER</name></field><field><id>EXECUTING_USER</id><enabled>N</enabled><name>EXECUTING_USER</name></field><field><id>CLIENT</id><enabled>N</enabled><name>CLIENT</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+<metrics-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>METRICS_DATE</id><enabled>Y</enabled><name>METRICS_DATE</name></field><field><id>METRICS_CODE</id><enabled>Y</enabled><name>METRICS_CODE</name></field><field><id>METRICS_DESCRIPTION</id><enabled>Y</enabled><name>METRICS_DESCRIPTION</name></field><field><id>METRICS_SUBJECT</id><enabled>Y</enabled><name>METRICS_SUBJECT</name></field><field><id>METRICS_TYPE</id><enabled>Y</enabled><name>METRICS_TYPE</name></field><field><id>METRICS_VALUE</id><enabled>Y</enabled><name>METRICS_VALUE</name></field></metrics-log-table>
     </log>
     <maxdate>
       <connection/>
@@ -452,10 +91,10 @@
     </slaveservers>
     <clusterschemas>
     </clusterschemas>
-    <created_user>-</created_user>
-    <created_date>2017&#x2f;04&#x2f;03 21&#x3a;36&#x3a;45.703</created_date>
-    <modified_user>-</modified_user>
-    <modified_date>2017&#x2f;04&#x2f;03 21&#x3a;36&#x3a;45.703</modified_date>
+  <created_user>-</created_user>
+  <created_date>2017&#x2f;04&#x2f;03 21&#x3a;36&#x3a;45.703</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2017&#x2f;04&#x2f;03 21&#x3a;36&#x3a;45.703</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -489,116 +128,19 @@
     </attributes>
   </connection>
   <order>
-    <hop>
-      <from>SORT_BASE_FILE</from>
-      <to>GET_DIFF_ROW</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>SORT_NEW_FILE</from>
-      <to>GET_DIFF_ROW</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>READ_BASE_FILE</from>
-      <to>SORT_BASE_FILE</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>READ_NEW_FILE</from>
-      <to>SORT_NEW_FILE</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>GET_DIFF_ROW</from>
-      <to>FILTER_NEW_ROWS</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>FILTER_NEW_ROWS</from>
-      <to>IGNORE_ROWS</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>ADD_DDI</from>
-      <to>FORMAT_PHONE_NUMBER</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>EMPTY_PHONE&#x3f;</from>
-      <to>ADD_DDI</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>EMPTY_PHONE&#x3f;</from>
-      <to>IMPORT_USERS</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>FORMAT_FIELDS</from>
-      <to>TRIM_VALUES</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>FORMAT_PHONE_NUMBER</from>
-      <to>ORDER_FIELDS</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>ORDER_FIELDS</from>
-      <to>IMPORT_USERS</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>TRIM_VALUES</from>
-      <to>EMPTY_PHONE&#x3f;</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>FILTER_NEW_ROWS</from>
-      <to>FORMAT_FIELDS</to>
-      <enabled>Y</enabled>
-    </hop>
+  <hop> <from>SORT_BASE_FILE</from><to>GET_DIFF_ROW</to><enabled>Y</enabled> </hop>
+  <hop> <from>SORT_NEW_FILE</from><to>GET_DIFF_ROW</to><enabled>Y</enabled> </hop>
+  <hop> <from>READ_BASE_FILE</from><to>SORT_BASE_FILE</to><enabled>Y</enabled> </hop>
+  <hop> <from>READ_NEW_FILE</from><to>SORT_NEW_FILE</to><enabled>Y</enabled> </hop>
+  <hop> <from>GET_DIFF_ROW</from><to>FILTER_NEW_ROWS</to><enabled>Y</enabled> </hop>
+  <hop> <from>FILTER_NEW_ROWS</from><to>IGNORE_ROWS</to><enabled>Y</enabled> </hop>
+  <hop> <from>EMPTY_PHONE&#x3f;</from><to>IMPORT_USERS</to><enabled>Y</enabled> </hop>
+  <hop> <from>FORMAT_FIELDS</from><to>TRIM_VALUES</to><enabled>Y</enabled> </hop>
+  <hop> <from>ORDER_FIELDS</from><to>IMPORT_USERS</to><enabled>Y</enabled> </hop>
+  <hop> <from>TRIM_VALUES</from><to>EMPTY_PHONE&#x3f;</to><enabled>Y</enabled> </hop>
+  <hop> <from>FILTER_NEW_ROWS</from><to>FORMAT_FIELDS</to><enabled>Y</enabled> </hop>
+  <hop> <from>EMPTY_PHONE&#x3f;</from><to>ORDER_FIELDS</to><enabled>Y</enabled> </hop>
   </order>
-  <step>
-    <name>ADD_DDI</name>
-    <type>Constant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>ddi</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>55</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>432</xloc>
-      <yloc>528</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
   <step>
     <name>EMPTY_PHONE&#x3f;</name>
     <type>FilterRows</type>
@@ -606,12 +148,12 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
 <send_true_to>IMPORT_USERS</send_true_to>
-<send_false_to>ADD_DDI</send_false_to>
+<send_false_to>ORDER_FIELDS</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
@@ -620,18 +162,12 @@
  <rightvalue/>
  </condition>
     </compare>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>592</xloc>
       <yloc>528</yloc>
       <draw>Y</draw>
-    </GUI>
+      </GUI>
     </step>
 
   <step>
@@ -641,10 +177,10 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
 <send_true_to>FORMAT_FIELDS</send_true_to>
 <send_false_to>IGNORE_ROWS</send_false_to>
     <compare>
@@ -655,18 +191,12 @@
  <rightvalue/>
  <value><name>constant</name><type>String</type><text>new&#x7c;changed</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
     </compare>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>272</xloc>
       <yloc>272</yloc>
       <draw>Y</draw>
-    </GUI>
+      </GUI>
     </step>
 
   <step>
@@ -676,122 +206,41 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
     <fields>      <field>        <name>ID_CONTA</name>
         <rename>id</rename>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>      <field>        <name>CPF</name>
         <rename>cpf</rename>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>      <field>        <name>NOME</name>
         <rename>nome</rename>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>      <field>        <name>TELEFONE</name>
         <rename>telefone</rename>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>      <field>        <name>EMAIL</name>
         <rename>email</rename>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>      <field>        <name>PRODUTO</name>
         <rename>produto</rename>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
-    </fields>    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>272</xloc>
       <yloc>416</yloc>
       <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>FORMAT_PHONE_NUMBER</name>
-    <type>ConcatFields</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <separator/>
-    <enclosure>&#x22;</enclosure>
-    <enclosure_forced>N</enclosure_forced>
-    <enclosure_fix_disabled>N</enclosure_fix_disabled>
-    <header>N</header>
-    <footer>N</footer>
-    <format>DOS</format>
-    <compression>None</compression>
-    <encoding>UTF-8</encoding>
-    <endedLine/>
-    <fileNameInField>N</fileNameInField>
-    <fileNameField/>
-    <create_parent_folder>Y</create_parent_folder>
-    <file>
-      <name>file</name>
-      <is_command>N</is_command>
-      <servlet_output>N</servlet_output>
-      <do_not_open_new_file_init>Y</do_not_open_new_file_init>
-      <extention>txt</extention>
-      <append>N</append>
-      <split>N</split>
-      <haspartno>N</haspartno>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <SpecifyFormat>N</SpecifyFormat>
-      <date_time_format/>
-      <add_to_result_filenames>Y</add_to_result_filenames>
-      <pad>N</pad>
-      <fast_dump>N</fast_dump>
-      <splitevery>0</splitevery>
-    </file>
-    <fields>
-      <field>
-        <name>ddi</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>telefone</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-    </fields>
-    <ConcatFields>
-<targetFieldName>telefone</targetFieldName>
-<targetFieldLength>0</targetFieldLength>
-<removeSelectedFields>Y</removeSelectedFields>
-    </ConcatFields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>272</xloc>
-      <yloc>528</yloc>
-      <draw>Y</draw>
-    </GUI>
+      </GUI>
     </step>
 
   <step>
@@ -801,10 +250,10 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
     <keys>
       <key>ID_CONTA</key>
     </keys>
@@ -820,18 +269,12 @@
 <compare>SORT_NEW_FILE</compare>
     <compare>
     </compare>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>272</xloc>
       <yloc>160</yloc>
       <draw>Y</draw>
-    </GUI>
+      </GUI>
     </step>
 
   <step>
@@ -841,22 +284,16 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>80</xloc>
       <yloc>272</yloc>
       <draw>Y</draw>
-    </GUI>
+      </GUI>
     </step>
 
   <step>
@@ -866,10 +303,10 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
     <connection>GLPI_CONNECTION</connection>
     <commit>100000</commit>
     <update_bypassed>N</update_bypassed>
@@ -913,18 +350,12 @@
         <update>Y</update>
       </value>
     </lookup>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>592</xloc>
       <yloc>688</yloc>
       <draw>Y</draw>
-    </GUI>
+      </GUI>
     </step>
 
   <step>
@@ -934,29 +365,41 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
     <fields>      <field>        <name>id</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>      <field>        <name>cpf</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>      <field>        <name>nome</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>      <field>        <name>telefone</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>      <field>        <name>email</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>      <field>        <name>produto</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
-    </fields>    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>272</xloc>
       <yloc>688</yloc>
       <draw>Y</draw>
-    </GUI>
+      </GUI>
     </step>
 
   <step>
@@ -966,10 +409,10 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
     <filename>&#x24;&#x7b;BASE_FILE&#x7d;</filename>
     <filename_field/>
     <rownum_field/>
@@ -1051,18 +494,12 @@
         <trim_type>both</trim_type>
       </field>
     </fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>80</xloc>
       <yloc>37</yloc>
       <draw>Y</draw>
-    </GUI>
+      </GUI>
     </step>
 
   <step>
@@ -1072,10 +509,10 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
     <filename>&#x24;&#x7b;NEW_FILE&#x7d;</filename>
     <filename_field/>
     <rownum_field/>
@@ -1157,18 +594,12 @@
         <trim_type>both</trim_type>
       </field>
     </fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>464</xloc>
       <yloc>37</yloc>
       <draw>Y</draw>
-    </GUI>
+      </GUI>
     </step>
 
   <step>
@@ -1178,10 +609,10 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
       <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
       <prefix>out</prefix>
       <sort_size>5000000</sort_size>
@@ -1194,23 +625,15 @@
         <name>ID_CONTA</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
         <presorted>N</presorted>
       </field>
     </fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>80</xloc>
       <yloc>160</yloc>
       <draw>Y</draw>
-    </GUI>
+      </GUI>
     </step>
 
   <step>
@@ -1220,10 +643,10 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
       <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
       <prefix>out</prefix>
       <sort_size>5000000</sort_size>
@@ -1236,23 +659,15 @@
         <name>ID_CONTA</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
         <presorted>N</presorted>
       </field>
     </fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>464</xloc>
       <yloc>160</yloc>
       <draw>Y</draw>
-    </GUI>
+      </GUI>
     </step>
 
   <step>
@@ -1262,10 +677,10 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
     <fields>
       <field>
         <in_stream_name>id</in_stream_name>
@@ -1346,23 +761,18 @@
         <remove_special_characters>none</remove_special_characters>
       </field>
     </fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>592</xloc>
       <yloc>416</yloc>
       <draw>Y</draw>
-    </GUI>
+      </GUI>
     </step>
 
   <step_error_handling>
   </step_error_handling>
-  <slave-step-copy-partition-distribution>
-  </slave-step-copy-partition-distribution>
-  <slave_transformation>N</slave_transformation>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+
 </transformation>
