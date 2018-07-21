@@ -178,7 +178,7 @@ class PluginFortbrasilTicket extends CommonITILObject {
     $pattern = array('/^(\\\\n|\\\\r)+/', '/(\\\\n|\\\\r)+$/');
     $content = preg_replace($pattern, '', $content);
 
-    $content = "ID Conta:\t$id_conta\nCPF:\t$cpf\nNome:\t$nome\n\n$content";
+    $content = "ID Conta:\t$id_conta\\nCPF:\t$cpf\\nNome:\t$nome\\n\\n$content";
 
     return $content;
   }
